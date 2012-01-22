@@ -1,4 +1,4 @@
-ColdFire Installation Notes
+CF-FireLogger Installation Notes
 
 1.   Welcome
 2.   License and Credits
