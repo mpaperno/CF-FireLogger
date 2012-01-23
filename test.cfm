@@ -21,7 +21,7 @@ console = new firelogger(debugMode=true, debugLevel="error", fallbackLogMethod="
 
 try {
 	//define some stuff to dump
-	for (i=1; i <= 15; i=i+1) { myArray[i] = "this is " & i;	}
+	for (i=1; i <= 5; i=i+1) { myArray[i] = "this is " & i;	}
 	myStruct = {"a"=1,"b"=2,"c"='orange',"d"=myArray};
 	
 	// simle message log of info type
@@ -51,7 +51,7 @@ try {
 	a = RandRange(0,1);
 	color = (a == true) ? "green" : "red";
 	// using the standard trace category attribute to pass a label and color for the badge
-	trace(text="Random result: #a#", category="TRACE,#color#");
+	trace(text="Random result: #a#", category="CF,#color#");
 	
 	// log multiple objects at once, with optional string expansion
 	console.log("myStruct: %s; myArray: %s", myStruct, myArray );
@@ -97,7 +97,15 @@ catch (any e) {
 }
 
 // test functions
-function udf_one(arg1, arg2) {
+/**
+ * This is a test function.  This is a test of metadata output.
+ *
+ * @author Santa Claus
+ * @output false
+ * @arg1 This is the first argument
+ * @arg2 Another argument
+ */
+function udf_one(required numeric arg1, string arg2="test") {
 	udf_second(TRUE);
 }
 function udf_second(arg1) { 
@@ -114,7 +122,7 @@ function udf_second(arg1) {
 
 <!--- test with a cftrace tag --->
 <cftrace var="myStruct" 
-			text="This is my last trace! console enabled: #a#" 
+			text="This is my last trace!" 
 		 	category="My Test,silver,black"
 		 	inline="false" abort="false">
 
