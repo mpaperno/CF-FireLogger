@@ -2,9 +2,10 @@
 	Name:				firelogger.cfm
 	Author:			Maxim Paperno
 	Created:			Jan. 2012
-	Last Updated:	1/14/2012
+	Last Updated:	1/23/2012
 	Version:			2.0
-	History:			Further improved component dump. Added fallbackDebugHandler option for when headers can't be sent. Bumped FireLogger extension recommended version to 1.2. Minor fixes. (14-Jan-12)
+	History:			Rewrite to make use of new firelogger.cfc component to do the actual output to the console. (23-Jan-12)
+						Further improved component dump. Added fallbackDebugHandler option for when headers can't be sent. Bumped FireLogger extension recommended version to 1.2. Minor fixes. (14-Jan-12)
 						Bugfix (id:1): Error formatting CFCs: The element at position 1 cannot be found.  Added extraVarsToShow config parameter. Improved internal error handling. (1/13/12))
 						Updated java class and CF component dumps.  Now has a nice display of component property values, if available. (1/12/2012)
 						Initial version based on coldfire.cfm (9/21/2007) by Nathan Mische & Raymond Camden (1/11/2012)
@@ -409,14 +410,13 @@ function firelogger_udf_handleFallback(type="disabled") {
 				</cfif>
 		</cfquery>
 		
-		<!---<cftrace var="a" inline="true">--->
-			
 		<cfif count.ttl GT arguments.maxLogEntries>
 			<cfset firelogger_udf_error("CF-Firelogger Debug Warning: #count.ttl# Templates were found. Only showing the first #arguments.maxLogEntries#.")>
 			<cfset arguments.format = "flat">
 		</cfif>
 		
-		
+		<!--- The tree view isn't a very complete representation of the actually loaded files.  CF doesn't seem to log the complete heirarchy properly.
+			TODO: Figure out a better way to display the tree... if possible. --->
 		<cfif arguments.format IS "tree">
 			
 			<cfscript>
@@ -467,8 +467,6 @@ function firelogger_udf_handleFallback(type="disabled") {
 			}
 			</cfscript>
 		
-			<!---<cftrace var="qTree" inline="true">--->
-			
 			<cfloop query="qTree">
 				<cfscript>
 					stTree[parentId] = structNew();
@@ -499,8 +497,6 @@ function firelogger_udf_handleFallback(type="disabled") {
 				</cfscript>
 			</cfloop>
 			
-			<!---<cftrace var="stTree" inline="true">--->
-			
 			<cfquery dbtype="query" name="topNodes" debug="false">
 				SELECT *
 				FROM qTree
@@ -508,7 +504,6 @@ function firelogger_udf_handleFallback(type="disabled") {
 			</cfquery>
 		
 			<cfloop query="topNodes">
-				<!---<cfset stkeyname = Replace(topNodes.template & " (" & topNodes.duration & "ms)", "\", "/", "all")>--->
 				<cfset stkeyname = firelogger_udf_fileFormatKeyname(topNodes.template, topNodes.line, topNodes.duration, 
 																						variables.__firelogger__.treeidx, true, 
 																						TimeFormat(topNodes.timestamp, "mm:ss.LLL"), 8, " @", Len(count.ttl))>

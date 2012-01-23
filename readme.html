@@ -1,21 +1,150 @@
-<h1>CF-FireLogger Readme</h1>
-<div class="image_float right">
-  <img alt="" height="218" src="/images/etc/rd/screenshot-v1-general.png" style="width: 309px; height: 218px;" width="309" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>CF-FireLogger</title>
+<!---<link rel="stylesheet" type="text/css" href="http://www.wdg.us/css/style.css">--->
+<style>
+body {margin: 20px;
+	font-family: Verdana, Tahoma, "Lucida Grande", "Lucida Sans Unicode", "Bitstream Vera Sans", "DejaVu Sans", Geneva, Arial, sans-serif;
+	font-size: .84em;
+	line-height: 1.3em;}
+p { padding: 3px 0px 5px 0px; }
+ul, ol { margin-left: 20px; }
+li { margin: 0px 0px 4px 0px; }
+a { color: #636466; text-decoration: underline;}
+a:hover { color: #c1222e; }
+a:active { color: #D96027; }
+a img { border-width: 0px; }
+h1 {
+	color: #c1222e;
+	font-size: 1.7em;
+	line-height: .9em;
+	font-weight: normal;
+	padding: 0px;
+	padding-bottom: 5px;
+	margin-bottom: 12px;
+	background-position: left bottom;
+	background-repeat: no-repeat;
+}
+h2 { 
+	color: #636466;
+	font-size: 1.4em; 
+	margin: 15px 0px 10px 0px;
+	font-weight: normal;
+}
+h3 { 
+	color: #636466;
+	font-size: 1.1em;
+	font-weight: bold;
+	margin: 15px 0px 8px 0px;
+}
+.image_float {
+	position: relative;
+	color: #c1222e;
+	font-size: .8em;
+	padding: 10px 10px 7px;
+	border: 1px solid #D0D0D0;
+	background-color: #fff;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	margin: 10px;
+}
+.image_float.attop { margin-top: 0; }
+.image_float.right {
+	clear: right;
+	float: right;
+	margin-right: 5px;
+	text-align: right;
+}
+.image_float.left {
+	clear: left;
+	float: left;
+	margin-left: 5px;
+	text-align: left;
+}
+.image_float img {
+	background: #adadad;
+	border: 1px solid #404040;
+	padding: 2px;
+	margin: 0 0 3px 0;
+}
+.image_float, .thumbMagnify {
+	cursor: pointer;
+	-o-box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.4);
+	-icab-box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.4);
+	-khtml-box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.4);
+	-moz-box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.4);
+	-webkit-box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.4);
+	box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.4);
+}
+.image_float.nolink { cursor: default; }
+.thumbMagnify {
+	display: none;
+	z-index: 100;
+	position: absolute;
+	top: -150px;
+	padding: 10px;
+	border: 2px solid #aaa;
+	background: #fff;
+	-o-border-radius: 8px;
+	-icab-border-radius: 8px;
+	-khtml-border-radius: 8px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	-webkit-transition: opacity 0.6s ease-in-out;
+}
+.image_float.right .thumbMagnify {
+	right: -5px;
+}
+.image_float.left .thumbMagnify {
+	left: -5px;
+}
+.thumbMagnify img {
+	padding: 1px;
+	margin: 0;
+}
+.tech_variable { font-style: italic; color: Purple; }
+.tech_progName { font-weight: normal; font-style: italic; }
+.tech_codeCommand { color: rgb(153, 0, 51); }
+.tech_codeAttrib { color: rgb(153, 0, 51); }
+</style>
+<script language="JavaScript">
+function toggleDisplayStyle(id) {
+	if (document.getElementById(id).style.display != 'block') 
+		document.getElementById(id).style.display='block';
+	else 
+		document.getElementById(id).style.display='none';
+}
+function toggleImg(id) { toggleDisplayStyle(id); }
+</script>
+</head>
+<body>
+<!--- --------------------- --->
+
+<h1><span class="tech_progName">CF-FireLogger</span> Readme</h1>
+<div class="image_float right" onclick="toggleImg('ss_lg')" title="Click for larger version">
+  <img alt="" height="254" src="docs/screenshot_v2_main_310.png" style="width: 310px; height: 254px; float: right;" width="310" /><br />
+  <div class="thumbMagnify" id="ss_lg" title="Click to close">
+    <img alt="" src="docs/screenshot_v2_main.png" width="893" />
+  </div>
 </div>
 <p><span class="tech_progName">CF-FireLogger</span> is a server-side library for the <a href="http://firelogger.binaryage.com"><span class="tech_progName">FireLogger</span></a> <a href="http://getfirebug.com"><span class="tech_progName">Firebug</span></a> extension.&nbsp; It enables logging of information from within ColdFusion code directly to the <span class="tech_progName">Firebug/FireLogger</span> console.&nbsp; An optional feature allows viewing of ColdFusions debugging information in the console instaed of inline.&nbsp; <span class="tech_progName">CF-FireLogger</span> is a great debugging tool for any situation, and is especially useful for &quot;AJAX&quot; style applications where showing debug info inline isn't always an option.&nbsp; <span class="tech_progName">CF-FireLogger</span> can be used as a standalone feature, or integrated with CFs built-in cftrace/trace() commands.</p>
-<p><a href="/cf-firelogger">CF-FireLogger Home</a> (this page)<br />
-  <a href="https://github.com/mpaperno/CF-FireLogger">CF-FireLogger on github</a> (download, issue tracking, Wiki)<br />
-  <a href="http://cffirelogger.riaforge.org/">CF-FireLogger on RIA Forge</a> (alternate issue tracking)</p>
+<p><a href="/cf-firelogger"><span class="tech_progName">CF-FireLogger</span> Home</a> (this page)<br />
+  <a href="https://github.com/mpaperno/CF-FireLogger"><span class="tech_progName">CF-FireLogger</span> on github</a> (download, issue tracking, Wiki)<br />
+  <a href="http://cffirelogger.riaforge.org/"><span class="tech_progName">CF-FireLogger</span> on RIA Forge</a> (alternate issue tracking)</p>
 <p><strong>Current version: 2.0 (Jan-22-2012)</strong></p>
 <p>&gt; <a href="#credits">License</a><br />
   &gt; <a href="#contrib">Contributors</a><br />
   &gt; <a href="#req">Requirements</a><br />
   &gt; <a href="#install">Download &amp; Installation</a><br />
   &gt; <a href="#usage">Usage</a><br />
+  &gt; <a href="#settings">Settings</a><br />
   &gt; <a href="#limits">Limitations</a><br />
   &gt; <a href="#jboss">Special Instructions for JBoss</a></p>
 <h2><a name="credits"></a>License</h2>
-<p>Copyright 2012 Maxim Paperno http://www.WorldDesign.com/</p>
+<p>Copyright 2012 Maxim Paperno <a href="http://www.WorldDesign.com/">http://www.WorldDesign.com/</a></p>
 <p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); you may not use this file except in compliance with the License. You may obtain a copy of the License at:</p>
 <p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
 <p>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</p>
@@ -26,11 +155,11 @@
   -Thank you to Thomas Messier for the use of his JSON code.<br />
   -Thank you to Sean Corfield for writing the JBoss documentation.</p>
 <h2><a name="req"></a>Requirements</h2>
-<p>CF-FireLogger works with Adobe ColdFusion version 9. Older versions are not supported at this time.</p>
+<p><span class="tech_progName">CF-FireLogger</span> works with Adobe ColdFusion version 9. Older versions are not supported at this time.</p>
 <p>You will also need <span class="tech_progName">Firefox</span>, <span class="tech_progName">Firebug</span>, and <span class="tech_progName">FireLogger</span>, as described in the Installation section below.</p>
 <h2><a name="install"></a>Download &amp; Installation</h2>
 <h3><a name="inst_fff"></a>Firefox, Firebug, and FireLogger</h3>
-<p>CF-FireLogger provides output which is parsed by FireLogger which is an extension to Firebug, which in itself is an extension for the Firefox browser. This means you must have the following items installed:</p>
+<p><span class="tech_progName">CF-FireLogger</span> provides output which is parsed by FireLogger which is an extension to Firebug, which in itself is an extension for the Firefox browser. This means you must have the following items installed:</p>
 <ul>
   <li>Firefox ( <a href="http://www.mozilla.org/firefox/">http://www.mozilla.org/firefox/</a> )</li>
   <li>Firebug extension ( <a href="http://www.getfirebug.com/">http://www.getfirebug.com/</a> )</li>
@@ -40,78 +169,110 @@
 <p><a href="https://github.com/mpaperno/CF-FireLogger/zipball/master">Download the latest version from Github</a>.</p>
 <ol>
   <li>To install, first extract the .zip installation package to a folder on your computer.</li>
-  <li>Move the &quot;us&quot; folder and its contents (/us/wdg/cf/firelogger.cfc) to your ColdFusion CustomTags directory.&nbsp; Typically (on Windows) this will be C:\ColdFusion9\CustomTags.&nbsp; Or you can place it anywhere else CF will know to look for custom tags and components (for example if you have specified additional custom tag paths in CF admin).&nbsp; You could also just place the firelogger.cfc file into your site's web root folder, although it is preferable to have it available where CF can always find it.</li>
-  <li>To test CF-FireLogger, put the test.cfm file somewhere you can execute it and then load it up in Firefox.&nbsp; Make sure you have Firebug enabled for the current site, and make sure FireLogger is also enabled (use the little arrow next to the &quot;Logger&quot; tab).&nbsp; You should see output in the FireLogger window, similar to the screenshot above.</li>
-  <li>You are ready to start utilizing the basic functions of CF-FireLogger by using firelogger.cfc directly (instructions below, or just read the test.cfm file).&nbsp; To integrate CF-FireLogger with CFs built-in cftrace/trace() commands (recommended!), keep reading.</li>
+  <li>Move the <em>&quot;us&quot;</em> folder and its contents (<i>/us/wdg/cf/firelogger.cfc</i>) to your ColdFusion CustomTags directory.&nbsp; Typically (on Windows) this will be <i>C:\ColdFusion9\CustomTags</i>.&nbsp; Or you can place it anywhere else CF will know to look for custom tags and components (for example if you have specified additional custom tag paths in CF admin).&nbsp; You could also just place the <span class="tech_progName">firelogger.cfc</span> file into your site's web root folder, although it is preferable to have it available where CF can always find it.</li>
+  <li>To test CF-FireLogger, put the <i>test.cfm</i> file somewhere you can execute it and then load it up in Firefox.&nbsp; Make sure you have Firebug enabled for the current site, and make sure FireLogger is also enabled (use the little arrow next to the &quot;Logger&quot; tab).&nbsp; You should see output in the FireLogger window, similar to the screenshot above.</li>
+  <li>You are ready to start utilizing the basic functions of <span class="tech_progName">CF-FireLogger</span> by using <span class="tech_progName">firelogger.cfc</span> directly (instructions below, or just read the <em>test.cfm</em> file).&nbsp; To integrate <span class="tech_progName">CF-FireLogger</span> with CFs built-in cftrace/trace() commands (recommended!), keep reading.</li>
 </ol>
 <h3><a name="inst_opt"></a>Optional Installations and Files</h3>
-<p>While the firelogger.cfc provides most of the functionality, there are certain enhancements which require additional files.</p>
+<p>While the <span class="tech_progName">firelogger.cfc</span> provides most of the functionality, there are certain enhancements which require additional files.</p>
 <h4>Using the custom trace.cfm tag/function (recommended)</h4>
-<p>CF-FireLogger provides the ability to log output to the console using the standard cftrace tag or trace() function.&nbsp; This is a huge benefit since your code will continue to run even if CF-FireLogger is not installed.&nbsp; So, for example, you can install CF-FireLogger just on your dev server and not worry about any left-over logging tags breaking your code when it's moved to production.&nbsp; The customized trace tag includes all the same functoinality as the original one from Adobe.&nbsp;</p>
+<p><span class="tech_progName">CF-FireLogger</span> provides the ability to log output to the console using the standard <span class="tech_codeCommand">cftrace</span> tag or <span class="tech_codeCommand">trace()</span> function.&nbsp; This is a huge benefit since your code will continue to run even if <span class="tech_progName">CF-FireLogger</span> is not installed.&nbsp; So, for example, you can install <span class="tech_progName">CF-FireLogger</span> just on your dev server and not worry about any left-over logging tags breaking your code when it's moved to production.&nbsp; The customized trace tag includes all the same functoinality as the original one from Adobe.&nbsp;</p>
 <p>NOTE: This involves slightly altering your ColdFuison installation. Proceed with caution and be sure to backup all modified files!</p>
 <ol>
-  <li>To install this tag, find the WEB-INF/cftags folder under your ColdFusion web root folder.</li>
-  <li>In this folder there should be a template named trace.cfm. Rename it to trace_adobe.cfm.</li>
-  <li>Now copy the trace.cfm tag, found in the /cftags folder of the installation package, to the cftags folder.</li>
+  <li>To install this tag, find the <em>WEB-INF/cftags</em> folder under your ColdFusion web root folder.</li>
+  <li>In this folder there should be a template named <em>trace.cfm</em>. Rename it to <em>trace_adobe.cfm</em>.</li>
+  <li>Now copy the <em>trace.cfm</em> file, found in the <em>/cftags</em> folder of the installation package, to the <em>WEB-INF/cftags </em>folder.</li>
 </ol>
 <p>&nbsp;</p>
 <h4>Logging CF Debug Output to FireLogger</h4>
-<p>Another optional CF-FireLogger feature is directing CFs built-in debugging info dump to the FireLogger console.&nbsp; This prevents the information from interfereing with your page display and makes it possible to debug &quot;background&quot; requests like in AJAX-based applications.&nbsp; It also makes a LOT more information available than the standard debug output options because you can drill down into any complex object like structures, queries, components, etc.&nbsp; You can view results of queries (not just the SQL statement), and the actual values of complex variables (instead of just &quot;Struct(4)&quot; like the built-in versions give you).</p>
+<p>Another optional <span class="tech_progName">CF-FireLogger</span> feature is directing CFs built-in debugging info dump to the FireLogger console.&nbsp; This prevents the information from interfereing with your page display and makes it possible to debug &quot;background&quot; requests like in AJAX-based applications.&nbsp; It also makes a LOT more information available than the standard debug output options because you can drill down into any complex object like structures, queries, components, etc.&nbsp; You can view results of queries (not just the SQL statement), and the actual values of complex variables (instead of just &quot;Struct(4)&quot; like the built-in versions give you).</p>
 <ol>
-  <li>To install, find your ColdFusion web root directory. Typically (on Windows) this will be C:\ColdFusion9\wwwroot.</li>
-  <li>There should be a folder in this directory called WEB-INF. Find the WEB-INF/debug folder. It should have some files like &quot;classic.cfm&quot; and &quot;dockable.cfm&quot; in it.</li>
-  <li>Copy the firelogger.cfm template located in the /debug folder of the installation package to this WEB-INF/debug folder.</li>
-  <li>Go to your ColdFusion Administrator, enable debugging, and select firelogger.cfm from the drop down. Ensure your IP is listed or that there is no IP restriction in place.</li>
-  <li>You can control what information is going to be logged to FireLogger using the options on the CF admin page, just like you would for the built-in debugging templates.</li>
+  <li>To install, find your ColdFusion web root directory. Typically (on Windows) this will be <em>C:\ColdFusion9\wwwroot</em>.</li>
+  <li>There should be a folder in this directory called <em>WEB-INF</em>. Find the <em>WEB-INF/debug</em> folder. It should have some files like <em>classic.cfm</em> and <em>dockable.cfm</em> in it.</li>
+  <li>Copy the <em>firelogger.cfm</em> template located in the <em>/debug</em> folder of the installation package to this <em>WEB-INF/debug</em> folder.</li>
+  <li>Go to your ColdFusion Administrator, enable debugging, and select &quot;firelogger.cfm&quot; from the <i>Select Debugging Output Format</i> option drop down. Ensure your IP is listed or that there is no IP restriction in place.</li>
+  <li>You can control what information is going to be logged to <span class="tech_progName">FireLogger</span> using the options on the CF admin page, just like you would for the built-in debugging templates.</li>
+  <li>Open the <span class="tech_progName">FireLogger</span> preferences dialog (use the little arrow next to the &quot;Logger&quot; tab) and select the checkbox next to &quot;Enable server-side profiling and call graph.&quot;&nbsp; Never mind the actual wording of that setting.&nbsp; What it does is tell <span class="tech_progName">CF-FireLogger</span> to show the debug output, or not. This is a convenient method of enabling or disabling debug output without having to go to the CF admin page each time.</li>
 </ol>
 <p>Once you have done that you should then be able to view ColdFusion debug information from within the Logger tab in the Firebug tool. Obviously you need to hit a ColdFusion page to see the debugging information.</p>
-<p>Although not required, the debugging output can make use of the custom trace.cfm tag (described above) to log enchanced information to the debug output.&nbsp; When using the cftrace/trace() commands, the enchanced tracing feature provides much richer detail in the debug output than CF's built-in variable dump.&nbsp; Specifically, you can drill down into any complex object, like structures, queries, components, etc.&nbsp; Typical CF trace logging just shows you what type of complex variable you have logged, and maybe it's length (not very useful!).</p>
+<p>Although not required, the debugging output can make use of the custom <em>trace.cfm</em> tag (described above) to log enhanced information to the debug output.&nbsp; When using the <span class="tech_codeCommand">cftrace</span>/<span class="tech_codeCommand">trace()</span> commands, the enchanced tracing feature provides much richer detail in the debug output than CF's built-in variable dump.&nbsp; Specifically, you can drill down into any complex object, like structures, queries, components, etc.&nbsp; Typical CF trace logging just shows you what type of complex variable you have logged, and maybe it's length (not very useful!).</p>
 <h5 style="margin-left: 40px;">Note Regarding Variable Output with Applications Using OnRequest()</h5>
-<p style="margin-left: 40px;">When used for debuging output as described above, CF-FireLogger provides a way to dump your &quot;variables&quot; scoped variables in the output (see &quot;Usage,&quot; below).</p>
+<p style="margin-left: 40px;">When used for debuging output as described above, <span class="tech_progName">CF-FireLogger</span> provides a way to dump your &quot;variables&quot; scoped variables in the output (see &quot;Usage,&quot; below).</p>
 <p style="margin-left: 40px;">If your application uses the onRequest method of Application.cfc then the &quot;variables&quot; scope is local to your application and cannot be accessed by the firelogger.cfm debug template. To get around this, you have 2 options:</p>
 <ol start="1" style="list-style-type: lower-alpha;">
-  <li style="margin-left: 40px;">Copy your variables scope into the request scope for debugging. Eg. &lt;cfset request.my_vars_scope = variables&gt;</li>
-  <li style="margin-left: 40px;">Extend the Application.cfc component provided with this project. Note that if your application uses onRequestEnd then you must call super.onRequestEnd() as part of your application's onRequestEnd method. The Application.cfc component is provided in the /appcfc folder of the CF-FireLogger installation package. This essetially does the same thing by copying your local variables scope into the request scope, into a structure named &quot;__cfc-variables-scope__&quot; So, for example, if you log &quot;variables.myVar&quot; it will appear in the output as &quot;request.__cfc-variables-scope__.myVar&quot;.</li>
+  <li style="margin-left: 40px;">Copy your variables scope into the request scope for debugging. Eg. <span class="tech_codeCommand">&lt;cfset</span> <span class="tech_variable">request.my_vars_scope</span> = <span class="tech_variable">variables</span>&gt;</li>
+  <li style="margin-left: 40px;">Extend the Application.cfc component provided with this project. Note that if your application uses <span class="tech_codeCommand">onRequestEnd</span> then you must call <span class="tech_codeCommand"><span class="tech_variable">super.onRequestEnd()</span></span> as part of your application's onRequestEnd method. The Application.cfc component is provided in the<em> /appcfc</em> folder of the <span class="tech_progName">CF-FireLogger</span> installation package. This essetially does the same thing by copying your local variables scope into the request scope, into a structure named &quot;<span class="tech_variable">__cfc-variables-scope__</span>&quot; So, for example, if you log &quot;<span class="tech_variable">variables.myVar</span>&quot; it will appear in the output as &quot;<span class="tech_variable">request.__cfc-variables-scope__.myVar</span>&quot;.</li>
 </ol>
 <p style="margin-left: 40px;">&nbsp;</p>
 <h2><a name="usage"></a>Usage</h2>
-<p>You must follow the following steps (in any order) to view CF-FireLogger output:</p>
-<ul>
-  <li>Enable Firebug for the current site.</li>
-  <li>Switch to the Firebug Logger tab and make sure it is set to Enabled (use the little arrow next to the tab title).</li>
-  <li>In your ColdFusion Administrator, under Debugging settings, enable debug output, select what info you would like to see (including which variable scopes to dump), and make sure &quot;firelogger.cfm&quot; is selected as the output template.</li>
-  <li>Now load your page and watch the output appear in the FireLogger console. This may look a little confusing at first, but bear with it. In the left pane there is one line for each type of debug info, one for General, one for Templates, one for Queries, and so on. Click on the hyperlinked text in one of the lines to get details in the right pane. In the right pane is where you can view the results and drill down to find the information you need. Anything with a plus icon can be expanded for more details.</li>
-</ul>
-<p>Note that if the Logger tab is not set to Enabled, then Firefox does not send the appropriate headers and the debug template (firelogger.cfm) simply exits without doing anything. If you would like to fall back to using another debug template in such cases (such as classic.cfm or dockable.cfm) then edit firelogger.cfm and set the value of __firelogger__.fallbackTemplate to the name of the desired template.</p>
-<p>If you see a line in the left pane with a red background, this means CF-FireLogger itself generated an error. You can expand this line for a simple stack trace. It would be useful to include this info when filing any bug reports! ;-)</p>
-<h3>Dumping other variables:</h3>
+<p>Using <span class="tech_progName">CF-FireLogger</span> is very simple.&nbsp; The best place to start would be to check out the included test.cfm file and see what is possible.&nbsp; It shows how to use the <span class="tech_progName">firelogger.cfc</span> component directly as well as how to use it with <span class="tech_codeCommand">cftrace</span>/<span class="tech_codeCommand">trace()</span> commands.&nbsp;</p>
+<p>If you opted to install the custom cftrace.cfm file, you can simply use <span class="tech_codeCommand">cftrace</span>/<span class="tech_codeCommand">trace()</span> as specified in the CF documentation.&nbsp; For example:</p>
+<p><span class="tech_codeCommand">&lt;cftrace</span> <span class="tech_codeAttrib">var</span>=&quot;<span class="tech_variable">myVariableName</span>&quot; <span class="tech_codeAttrib">text</span>=&quot;My message to log&quot;<span class="tech_codeCommand">&gt;</span> or<br />
+  <span class="tech_codeCommand">trace(</span>&quot;<span class="tech_variable">myVariableName</span>&quot;<span class="tech_codeCommand">);</span> or<br />
+  <span class="tech_codeCommand">trace(</span>&quot;<span class="tech_variable">myVariableName</span>&quot;<span class="tech_codeCommand">, </span>&quot;My message to log&quot;, &quot;warning&quot;<span class="tech_codeCommand">);</span></p>
+<p>All attributes of the cfcatch tag are supported and the syntax is exactly the same.&nbsp; You don't need to do anything else to use cftrace/trace(), which is why it is the recommended method.</p>
+<p>Using the firelogger.cfc compnenet directly does provide some extra flexibility, however, or perhaps changing your server configuration isn't an option.&nbsp; Here's a summary of how to use it.&nbsp; I'll use CFML tag syntax for the examples, but of course you can use cfscript syntax as well.&nbsp; Assume <span class="tech_variable">myVariableName</span> is some kind of &quot;complex&quot; value like a structure or query.</p>
+<ol>
+  <li>First you need to instantiate and intialize the component.<br />
+    <span class="tech_codeCommand">&lt;set </span><span class="tech_codeCommand"><span class="tech_variable">console </span></span><span class="tech_codeCommand">= new firelogger()&gt;</span> or<br />
+    <span class="tech_codeCommand">&lt;cfset </span><span class="tech_codeCommand"><span class="tech_variable">console </span></span><span class="tech_codeCommand">= CreateObject(</span>&quot;component&quot;, &quot;firelogger&quot;<span class="tech_codeCommand">).init()&gt;</span> or (to avoid naming conflicts)<br />
+    <span class="tech_codeCommand">&lt;set </span><span class="tech_codeCommand"><span class="tech_variable">console </span></span><span class="tech_codeCommand">= new us.wdg.cf.firelogger()&gt;</span></li>
+  <li>Now you can simply call console.log() to send output to the console.&nbsp; Just like JavaScript :)<br />
+    <span class="tech_codeCommand">&lt;cfset console.log(</span><span class="tech_variable">myVariableName</span><span class="tech_codeCommand">)&gt;</span> or<br />
+    <span class="tech_codeCommand">&lt;cfset console.log(</span>&quot;Some message to log&quot;<span class="tech_codeCommand">)&gt;</span> or<br />
+    <span class="tech_codeCommand">&lt;cfset console.log(</span>&quot;Some message to log with a #<span class="tech_variable">simpleVariable</span>#&quot;<span class="tech_codeCommand">)&gt;</span> or<br />
+    <span class="tech_codeCommand">&lt;cfset console.log(</span>&quot;Some message to log&quot;, <span class="tech_variable">myVariableName</span><span class="tech_codeCommand">)&gt;</span> or<br />
+    <span class="tech_codeCommand">&lt;cfset console.info(</span>&quot;Information type message to log&quot;<span class="tech_codeCommand">)&gt;</span>or<br />
+    <span class="tech_codeCommand">&lt;cfset console.warn(</span>&quot;Warning type message to log&quot;<span class="tech_codeCommand">)&gt;</span> and so on...</li>
+</ol>
+<p><br />
+  Note that you pass variables by value, unlike cftrace where you pass variables by name.&nbsp; The log() method acts more like the cfdump tag, to which you also pass variables by value.&nbsp; It's a small, but important, distinction.</p>
+<p>If you pass an error object to log() or trace() then it will automatcially format all the available error information for you and include a CF stack trace (technically, the &quot;tag context&quot;) in the output.&nbsp; So for example:</p>
+<p><span class="tech_codeCommand">try {</span> <span style="color:#a9a9a9;">/* done some fancy stuff */</span> <span class="tech_codeCommand">}</span><br />
+  <span class="tech_codeCommand">catch (</span><span class="tech_codeAttrib">any</span> <span class="tech_variable">e</span><span class="tech_codeCommand">) { trace(</span>&quot;<span class="tech_variable">e</span>&quot;<span class="tech_codeCommand">); }</span></p>
+<p>This will dump all the error info to the <span class="tech_progName">FireLogger </span>window if it is enabled, or log it to the CF debug info and log file if it is not (default trace behavior).</p>
+<p><span class="tech_progName">CF-FireLogger</span> reports internal errors in a similar manner.&nbsp; Internal errors will appears at the top of any other log messages.&nbsp; Please copy/paste this info, including the stack trace, when reporting errors!</p>
+<h3>Optional password protection</h3>
+<p>The FireLogger extension provides a way to specify a password which is sent to the server to enable debug output. By default no password is required. This may possibly expose sensitive information if used on a site which is publicly-accessible (and if the debug info is enabled and IP restrictions are not in place). You can specify a password via several methods:</p>
+<ol start="1" style="list-style-type: lower-alpha;">
+  <li>Use a password attribute when initializing the firelogger.cfc component: <span class="tech_codeCommand">&lt;set <span class="tech_variable">console </span>= new firelogger(<span class="tech_codeAttrib">password</span></span>=<span class="tech_codeCommand">&quot;</span>mypass<span class="tech_codeCommand">&quot;)&gt;</span></li>
+  <li>Edit firelogger.cfc and provide a default value for the <span class="tech_variable">variables.password</span> declaration.</li>
+  <li>To only enable password protection for CF debugging output, edit the <span class="tech_progName">debug/firelogger.cfm</span> file and set the value for the <span class="tech_variable">__firelogger__.password</span> variable.</li>
+</ol>
+<p>Using a password, one could theoretically leave debugging enabled on the server w/out specifying an IP address and still have the information relatively secure. Could be useful for developing from dynamic IPs!</p>
+<h2><a name="settings"></a>Settings</h2>
+<h3>Firelogger.cfc</h3>
+<p>For all possible firelogger.cfc settings, see the Parameters section of the <a href="docs/firelogger.cfc.html">cfc docs</a>.&nbsp; Most parameters can be set either at init() as name=value pairs, for example <span class="tech_codeCommand">new firelogger(</span><span class="tech_codeAttrib">password</span>=&quot;mypass&quot;<span class="tech_codeCommand">)</span>, or by using setter methods, for example <span class="tech_codeCommand">firelogger.setPassword(</span>&quot;mypass&quot;<span class="tech_codeCommand">)</span>.</p>
+<h3>Custom Trace options</h3>
+<p>By default, the custom trace tag will log traces to the cftrace.log ColdFusion log file, just like the official version does.&nbsp; You can disable this behavior by edting the cftags/trace.cfm file and chaning one line:</p>
+<p><span class="tech_codeCommand">&lt;cfset doTrace(</span><span class="tech_variable">attributes</span>, <strong>true</strong><span class="tech_codeCommand">)&gt;</span></p>
+<p>to</p>
+<p><span class="tech_codeCommand">&lt;cfset doTrace(</span><span class="tech_variable">attributes</span>, <strong>false</strong><span class="tech_codeCommand">)&gt;</span></p>
+<h3>CF Debugging Output Options</h3>
+<p>Note that if the Logger tab is not set to Enabled, then Firefox does not send the appropriate headers and the debug template (<span class="tech_progName">debug/firelogger.cfm</span>) simply exits without doing anything. If you would like to fall back to using another debug template in such cases (such as <em>classic.cfm</em> or <em>dockable.cfm</em>), use the <span class="tech_variable">fallbackTemplate</span> setting, described below.</p>
+<h4>Specifying variables to log:</h4>
 <p>By default only the variable scopes set to display in CF Administrator will be included in the output. This does NOT include the &quot;variables&quot; scope.</p>
-<p>You can tell CF-FireLogger to include specific variables (or scopes) in the output by setting a special request variable to an array of values. For example, set this anywhere in your CF code:</p>
-<p>&lt;cfset request.firelogger_debug.varlist =<br />
-  &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ['variables.myVar','variables.myQuery']&gt;<br />
+<p>You can tell <span class="tech_progName">CF-FireLogger</span> to include specific variables (or scopes) in the output by setting a special request variable to an array of values. For example, set this anywhere in your CF code:</p>
+<p><span class="tech_codeCommand">&lt;cfset</span> <span class="tech_variable">request.firelogger_debug.varlist</span> = ['variables.myVar','variables.myQuery']<span class="tech_codeCommand">&gt;</span><br />
   &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<br />
   Or, to dump the whole &quot;variables&quot; scope:<br />
   <br />
-  &lt;cfset request.firelogger_debug.varlist = ['variables']&gt;<br />
-  &nbsp;</p>
-<p>&lt;cfset request.firelogger_debug.varlist=&quot;['variables']&quot;&gt;&lt;/cfset&gt;</p>
+  <span class="tech_codeCommand">&lt;cfset</span> <span class="tech_variable">request.firelogger_debug.varlist</span> = ['variables']<span class="tech_codeCommand">&gt;</span></p>
 <p>If you would like to limit the amount of information returned in the debug variables output (and speed up the process as well), you could, for example, disable all the scopes in the CF Admin debug settings, and then specify what you want dumped using the request array.</p>
-<p>Also check out the extraVarsToShow setting in the Settings section below.</p>
-<h3>Optional password protection</h3>
-<p>The FireLogger extension provides a way to specify a password which is sent to the server to enable debug output. By default no password is required. This may possibly expose sensitive information if used on a site which is publicly-accessible (and if the debug info is enabled and IP restrictions are not in place). You can specify a password by editing the firelogger.cfm file and setting the __firelogger__.password variable.</p>
-<p>Using a password, one could theoretically leave debugging enabled on the server w/out specifying an IP address and still have the information relatively secure. Could be useful for developing from dynamic IPs!</p>
-<h3>Settings</h3>
-<p>These can be found at the top of debug/firelogger.cfm.</p>
-<p>fallbackDebugHandler (default: classic.cfm) - As mentioned below, CF-FireLogger can't send HTTP headers after output has already been sent to the browser. This can happen for a number of reasons, including if there is an unhandled exception in your code. Set the value of this variable to the debug template to use in such cases. Set it to blank to disable any fallback handler.</p>
-<p>fallbackTemplate (default: blank) - If Firebug/FireLogger is not enabled, you can specify a template to use instead. For example &quot;classic.cfm&quot; or &quot;dockable.cfm&quot;. extraVarsToShow (default: empty array) - An array of variable scopes/names to always include in the output, regardless of CF Admin settings.</p>
-<p>password (default: blank) - as mentioned above, you can set this to enable password protection for your debug output.</p>
+<h4>Other possible settings :</h4>
+<p>(These can all be found at the top of <span class="tech_progName">debug/firelogger.cfm</span>)</p>
+<p><span class="tech_variable">fallbackDebugHandler </span>(default: classic.cfm) - As mentioned below, <span class="tech_progName">CF-FireLogger</span> can't send HTTP headers after output has already been sent to the browser. This can happen for a number of reasons, including if there is an unhandled exception in your code. Set the value of this variable to the debug template to use in such cases. Set it to blank to disable any fallback handler.</p>
+<p><span class="tech_variable">fallbackTemplate</span> (default: blank) - If Firebug/FireLogger is not enabled, you can specify a template to use instead. For example &quot;classic.cfm&quot; or &quot;dockable.cfm&quot;.</p>
+<p><span class="tech_variable">extraVarsToShow </span>(default: empty array) - An array of variable scopes/names to always include in the output, regardless of CF Admin settings.</p>
+<p><span class="tech_variable">password </span>(default: blank) - as mentioned above, you can set this to enable password protection for your debug output.</p>
 <h2><a name="limits"></a>Limitations</h2>
-<p>CF-FireLogger makes use of CFHEADER to supply debug information to the browser. Because of this there are certain places where CF-FireLogger will not be able to work. First - if you use CFFLUSH anywhere on the page, CF-FireLogger is unable to add header information to the request. Secondly - there are situations where certain tags will implicitly flush output. One example is CFTIMER/type=&quot;inline&quot;. Any use of this tag and attribute combination will result in CF-FireLogger not returning any data. Thirdly - you cannot add headers to remote cfc calls after the requested method is invoked (ie. in OnRequstEnd or the debugging template). This means you cannot use CF-FireLogger to debug AJAX requests bound to components. (Note that requests which use a .cfm template to call a cfc will work just fine.)</p>
-<p>The variables dump can only output variables available in the requested template. This means that variables local to components, custom tags, or UDFs cannot be displayed. If you would like to include those in the dump, you could copy them into a shared scope like request. For example: request.my_UDF_Local_Vars.myVar = local.myVar; Or simply: request.my_UDF_Local_Vars = local;</p>
-<p>Dumping variables (especially whole scopes) can incur a significant performance penalty. Unlike the built-in CF debug output options, CF-FireLogger will drill down and display complex object types, which can take a significant amount of time in some cases. If you find your page requests taking a long time to process because of the debug output, you may want to limit what is being dumped by using the CF Admin options and/or the request.firelogger_debug.varlist as described in &quot;Usage.&quot;</p>
+<p><span class="tech_progName">CF-FireLogger</span> makes use of CFHEADER to supply debug information to the browser. Because of this there are certain places where <span class="tech_progName">CF-FireLogger</span> will not be able to work. First - if you use CFFLUSH anywhere on the page, <span class="tech_progName">CF-FireLogger</span> is unable to add header information to the request after the flush. Similary, there are situations where certain tags will implicitly flush output. One example is <span class="tech_codeCommand">CFTIMER</span>/type=&quot;inline&quot;.&nbsp; Also, you cannot add headers to remote cfc calls after the requested method is invoked (ie. in OnRequstEnd or the debugging template).</p>
+<p>The rest of the limitations apply mostly to the CF debugging information output and doesn't appy if you're using <span class="tech_progName">CF-FireLogger</span> to log information to the console from within your CF code.</p>
+<p>The CF debugging variables dump can only output variables available in the requested template. This means that variables local to components, custom tags, or UDFs cannot be displayed. If you would like to include those in the dump, you could copy them into a shared scope like request. For example: <span class="tech_variable">request.my_UDF_Local_Vars.myVar</span> =<span class="tech_variable"> local.myVar</span>; Or simply: <span class="tech_variable">request.my_UDF_Local_Vars</span> = <span class="tech_variable">local</span>;</p>
+<p>Dumping variables (especially whole scopes) can incur a significant performance penalty. Unlike the built-in CF debug output options, <span class="tech_progName">CF-FireLogger</span> will drill down and display complex object types, which can take a significant amount of time in some cases. If you find your page requests taking a long time to process because of the debug output, you may want to limit what is being dumped by using the CF Admin options and/or the <span class="tech_variable">request.firelogger_debug.varlist</span> as described in &quot;Usage.&quot;</p>
 <p>Similarly, keep in mind that the communication with FireLogger happens via HTTP headers by passing Base64-encoded JSON strings. Depending on how much you're dumping, this could get very large. It takes time to build the headers, transmit/receive them, and then parse them on the client. So, the more you have, the slower things will get.</p>
-<p>The total debug time is available as an HTTP header which you can examine in Firebug's Net panel (FireLogger-debug-time). This includes parsing the data and building the headers. There is also a debug time available in the General Info view-- this is just the time it took to parse the data.</p>
-<p>As noted in the previous section, dumping any &quot;variables&quot; scoped variables will not work for applications using the onRequest method of Application.cfc unless the Application.cfc extends the CF-FireLogger Application component.</p>
+<p>The total CF debug output time is available as an HTTP header which you can examine in Firebug's Net panel (CF-FireLogger-debug-time). This includes parsing the data and building the headers. There is also a debug time available in the General Info view-- this is just the time it took to parse the data.</p>
+<p>As noted in the previous section, dumping any &quot;variables&quot; scoped variables will not work for applications using the onRequest method of Application.cfc unless the variables scope is copied to a shared scope like request first, or your Application.cfc extends the <span class="tech_progName">CF-FireLogger</span> Application component.</p>
 <h2><a name="jboss"></a>Special Instructions for JBoss</h2>
 <p>(Thank you to Sean Corfield for writing this JBoss documentation for the <span class="tech_progName">ColdFire</span> project.)</p>
 <p>JBoss has a default maximum HTTP header size of 4Kb in total. You can modify it by editing the following file:</p>
@@ -143,3 +304,7 @@
   &nbsp;&nbsp; &nbsp;acceptCount=&quot;100&quot;<br />
   &nbsp;&nbsp; &nbsp;connectionTimeout=&quot;20000&quot;<br />
   &nbsp;&nbsp; &nbsp;disableUploadTimeout=&quot;true&quot; /&gt;</p>
+  
+<!--- --------------------- --->
+</body>
+</html>

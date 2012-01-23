@@ -1,6 +1,6 @@
 # CF-FireLogger
 
-CF-FireLogger is a server-side library for the <a href="http://firelogger.binaryage.com/">FireLogger</a> <a href="http://getfirebug.com">Firebug</a> extension.
+CF-FireLogger is a ColdFusion server-side library for the <a href="http://firelogger.binaryage.com/">FireLogger</a> <a href="http://getfirebug.com">Firebug</a> extension.
 It enables logging of information from within ColdFusion code directly to the Firebug/FireLogger console.
 An optional feature allows viewing of ColdFusions debugging information in the console instead of inline.
 CF-FireLogger is a great debugging tool for any situation, and is especially useful for &quot;AJAX&quot; 

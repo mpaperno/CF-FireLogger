@@ -15,16 +15,17 @@
 
 <cfscript>
 
-// instantiate the logger
-// all arguments are optional
-console = new firelogger(debugMode=true, debugLevel="error", fallbackLogMethod="trace-inline");
+// instantiate the logger.
+// all arguments are optional.
+// for complete list of arguments, see cfc docs.
+console = new firelogger(debugMode=false, debugLevel="info", fallbackLogMethod="trace-inline");
 
 try {
 	//define some stuff to dump
 	for (i=1; i <= 5; i=i+1) { myArray[i] = "this is " & i;	}
 	myStruct = {"a"=1,"b"=2,"c"='orange',"d"=myArray};
 	
-	// simle message log of info type
+	// simple message log of info type
 	console.log("info", "First message from CF-Firelogger!");
 	
 	// if form is submitted dump form fields and uploaded file in binary mode
@@ -41,6 +42,7 @@ try {
 	// output a simple value variable and an array
 	a = console.getdebugMode();
 	console.log("CF-Firelogger debugMode is: #a#; myArray is:", myArray );
+	// default log type when using firelogger.cfc is "debug"
 	
 	// we won't see this message unless we have specified a password in FireLogger preferences
 	console.setPassword("testpass");
@@ -53,8 +55,13 @@ try {
 	// using the standard trace category attribute to pass a label and color for the badge
 	trace(text="Random result: #a#", category="CF,#color#");
 	
+	// default log type when using trace is "info".  
+	// There's no way to get a "debug" type since cftrace doesn't support it.
+	
 	// log multiple objects at once, with optional string expansion
 	console.log("myStruct: %s; myArray: %s", myStruct, myArray );
+	// could also just list the objects...
+	// console.log(myStruct, myArray, myWhatever, .... );
 	
 	// costom badge name/colors
 	console.setLoggerName("George");
@@ -73,7 +80,7 @@ try {
 	console.critical("This is a critical error!");
 	
 	// trace thyself
-	trace("console", "This is my logger");
+	trace("console", "This is my logger", "warning");
 
 	// cause an exception
 	udf_one(10, 'test');
@@ -121,7 +128,7 @@ function udf_second(arg1) {
 </cfscript>
 
 <!--- test with a cftrace tag --->
-<cftrace var="myStruct" 
+<cftrace var="myStruct" type="warning" 
 			text="This is my last trace!" 
 		 	category="My Test,silver,black"
 		 	inline="false" abort="false">
