@@ -3,8 +3,9 @@
 	Author:			Maxim Paperno
 	Created:			Jan. 2012
 	Last Updated:	1/24/2012
-	Version:			1.01
-	History:			Auto-set level to error if logging cfcatch object. Fix for passing pre-formatted error report. (jan-24-12)
+	Version:			1.02
+	History:			Minor method meta info updates. (jan-24-12)
+						Auto-set level to error if logging cfcatch object. Fix for passing pre-formatted error report. (jan-24-12)
 						Initial version.
 
 Handles server-side output for FireLogger Firebug plugin.
@@ -29,8 +30,7 @@ Handles server-side output for FireLogger Firebug plugin.
 	<cfproperty name="text" 
 					default="" 
 					type="string" 
-					hint="The message to be logged. Can contain simple variables wrapped in 
-			  					hash (aka. pound or number) characters.">
+					hint="The plain-text message to be logged.">
 					
 	<cfproperty name="type" 
 					default="debug" 
@@ -131,7 +131,7 @@ Handles server-side output for FireLogger Firebug plugin.
 	// set defaults for properties here
 	// keep "obj" undefined to simplify testing for its existence
 	
-	variables.version = "1.0";
+	variables.version = "1.02";
 	
 	variables.projectURL = "http://cffirelogger.riaforge.org/";
 	variables.fireloggerURL = "http://firelogger.binaryage.com/";
@@ -450,9 +450,11 @@ Handles server-side output for FireLogger Firebug plugin.
 	}
 	
 	/**
-	 * Error handler.  Public becaues frelogger.cfm debug template can also use this.
+	 * Error handler for "soft" errors.  
 	 * Can be used to return a special error type header to FireLogger console which
 	 * shows up at the top with a red background and expands to show a stack trace.
+	 *
+	 * Public becaues frelogger.cfm debug template can also use this.
 	 *
 	 * @msg plain text message to log
 	 * @e error object (result of catch)
@@ -479,6 +481,8 @@ Handles server-side output for FireLogger Firebug plugin.
 	 * if we die while building the output.  Tries to log the original request to the fallback
 	 * handler (eg. trace or writedump).
 	 *
+	 * @msg plain text message to log
+	 * @e error object (result of catch)
 	 * @output true
 	 */
 	private void function panic(msg, e=StructNew()) {
@@ -694,11 +698,11 @@ Handles server-side output for FireLogger Firebug plugin.
 	
 	
 	/**
-	 * Returns a struct of of headername:value for the logging output.
+	 * Builds variables.headers structure of headername:value pairs for the logging output based on the passed-in array of data strings.
 	 * 
 	 * @output false
 	 */
-	public void function buildHeaders(array data, string format="firelogger") {
+	private void function buildHeaders(array data, string format="firelogger") {
 		try {
 			// random hex ID for firelogger header, as per specs --->
 			var hdrid = formatBaseN(randRange(0, 65535), 16) & formatBaseN(randRange(0, 65535), 16);
@@ -719,7 +723,7 @@ Handles server-side output for FireLogger Firebug plugin.
 	 * 
 	 * @output false
 	 */
-	public void function sendHeaders() {
+	private void function sendHeaders() {
 		try {
 			var response = getPageContext().getResponse();
 			if ( response.isCommitted() ) {
@@ -740,7 +744,7 @@ Handles server-side output for FireLogger Firebug plugin.
 	 * 
 	 * @output false
 	 */
-	public array function splitStrToArray(string data, numeric size=variables.maxHeaderLength) {
+	private array function splitStrToArray(string data, numeric size=variables.maxHeaderLength) {
 		try {
 			return reMatch(".{1,#arguments.size#}", arguments.data);
 		}
@@ -753,7 +757,7 @@ Handles server-side output for FireLogger Firebug plugin.
 	/**
 	 * Converts firelogger style logging types (severity levels) to CF types
 	 */
-	public string function typeFL2CF(string type) {
+	private string function typeFL2CF(string type) {
 		switch (arguments.type) {
 			case "warning":
 			case "error":
@@ -817,10 +821,11 @@ Handles server-side output for FireLogger Firebug plugin.
 
 <!--- TODO: convert this to script!  'cuz it's prettier. --->
 <cffunction 
+	access="public" 
 	name="encodeJSON" 
 	returntype="string" 
 	output="true"
-	hint="Converts data from CF to JSON format">
+	hint="Converts data from CF to structured JSON format.">
 		
 	<cfargument name="data" type="any" required="Yes" />
 	<cfargument name="encodeDepth" type="numeric" required="No" default=0 >
