@@ -2,9 +2,10 @@
 	Name:				firelogger.cfc
 	Author:			Maxim Paperno
 	Created:			Jan. 2012
-	Last Updated:	1/20/2012
-	Version:			1.0
-	History:			Initial version.
+	Last Updated:	1/24/2012
+	Version:			1.01
+	History:			Auto-set level to error if logging cfcatch object. Fix for passing pre-formatted error report. (jan-24-12)
+						Initial version.
 
 Handles server-side output for FireLogger Firebug plugin.
 
@@ -307,9 +308,10 @@ Handles server-side output for FireLogger Firebug plugin.
 						}
 						// check to see if we're passing a pre-packaged array of error message(s) with stack trace
 						else if ( IsStruct(tmp) && StructKeyExists(tmp, "exc_info") && IsArray(tmp["exc_info"]) ) {
-							logitem["exc_info"] = tmp.exc_info;
+							logitem["level"] = "error";
+							logitem["exc_info"] = encodeJSON(data=tmp.exc_info, preserveArrays=1, preserveArraysRecurseLevels=0);
 							if ( StructKeyExists(tmp, "exc_frames") ) {
-								logitem["exc_frames"] = tmp.exc_frames;
+								logitem["exc_frames"] = encodeJSON(data=tmp.exc_frames, preserveArrays=1, preserveArraysRecurseLevels=0);;
 							}
 							continue; // don't log this value in args parameter
 						}
@@ -317,6 +319,7 @@ Handles server-side output for FireLogger Firebug plugin.
 						// check to see if we're passing an exception type (cfcatch object)
 						else if ( IsDefined("tmp.tagcontext") && IsDefined("tmp.type") ) {
 							tmpval = formatErrorOutput(arguments.text, tmp);
+							logitem["level"] = "error";
 							logitem["template"] = tmpval.text;
 							logitem["exc_info"] = encodeJSON(data=tmpval.exc_info, preserveArrays=1, preserveArraysRecurseLevels=0);
 							logitem.pathname = tmpval.filename;
