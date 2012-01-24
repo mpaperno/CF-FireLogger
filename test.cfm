@@ -34,7 +34,7 @@ try {
 		if ( Len(form.fileupload) ) {
 			uploadedFile = fileReadBinary(form.fileupload);
 			trace("uploadedFile", "Binary file dump");
-			try {fileDelete(form.fileupload);} catch (any e) {trace("e.message");}
+			try {fileDelete(form.fileupload);} catch (any e) {trace("e");}
 		}
 		trace("form");
 	}
@@ -62,9 +62,12 @@ try {
 	console.log("myStruct: %s; myArray: %s", myStruct, myArray );
 	// could also just list the objects...
 	// console.log(myStruct, myArray, myWhatever, .... );
+	//
+	// you can only log one object at a time with cftrace/trace()
 	
 	// costom badge name/colors
 	console.setLoggerName("George");
+	// use any standard CSS color specification
 	console.setLoggerBGColor("orange");
 	console.setLoggerFGColor("##292929");
 	
@@ -122,7 +125,7 @@ function udf_second(arg1) {
 	} 
   	catch(any e) { 
   			//console.log("error", "got an error in udf_second()", e);
-  			trace("e", "got an error in udf_second()", "error"); 
+  			trace("e", "got an error in udf_second()"); 
   	}
 }
 </cfscript>
