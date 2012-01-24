@@ -131,10 +131,10 @@ function toggleImg(id) { toggleDisplayStyle(id); }
   </div>
 </div>
 <p><span class="tech_progName">CF-FireLogger</span> is a ColdFusion server-side library for the <a href="http://firelogger.binaryage.com"><span class="tech_progName">FireLogger</span></a> <a href="http://getfirebug.com"><span class="tech_progName">Firebug</span></a> extension.&nbsp; It enables logging of information from within ColdFusion code directly to the <span class="tech_progName">Firebug/FireLogger</span> console.&nbsp; An optional feature allows viewing of ColdFusions debugging information in the console instaed of inline.&nbsp; <span class="tech_progName">CF-FireLogger</span> is a great debugging tool for any situation, and is especially useful for &quot;AJAX&quot; style applications where showing debug info inline isn't always an option.&nbsp; <span class="tech_progName">CF-FireLogger</span> can be used as a standalone feature, or integrated with CFs built-in cftrace/trace() commands.</p>
-<p><a href="/cf-firelogger"><span class="tech_progName">CF-FireLogger</span> Home</a> (this page)<br />
+<p><a href="/cf-firelogger"><span class="tech_progName">CF-FireLogger</span> Home</a><br />
   <a href="https://github.com/mpaperno/CF-FireLogger"><span class="tech_progName">CF-FireLogger</span> on github</a> (download, issue tracking, Wiki)<br />
   <a href="http://cffirelogger.riaforge.org/"><span class="tech_progName">CF-FireLogger</span> on RIA Forge</a> (alternate issue tracking)</p>
-<p><strong>Current version: 2.0 (Jan-22-2012)</strong></p>
+<p><strong>Current version: 2.1 (Jan-24-2012)</strong></p>
 <p>&gt; <a href="#credits">License</a><br />
   &gt; <a href="#contrib">Contributors</a><br />
   &gt; <a href="#req">Requirements</a><br />
@@ -157,6 +157,7 @@ function toggleImg(id) { toggleDisplayStyle(id); }
 <h2><a name="req"></a>Requirements</h2>
 <p><span class="tech_progName">CF-FireLogger</span> works with Adobe ColdFusion version 9. Older versions are not supported at this time.</p>
 <p>You will also need <span class="tech_progName">Firefox</span>, <span class="tech_progName">Firebug</span>, and <span class="tech_progName">FireLogger</span>, as described in the Installation section below.</p>
+<p><span class="tech_progName">CF-FireLogger</span> is compatible with the <span class="tech_progName">ColdFire</span> debugger console in that it supports enhanced trace output for <span class="tech_progName">ColdFire</span>.</p>
 <h2><a name="install"></a>Download &amp; Installation</h2>
 <h3><a name="inst_fff"></a>Firefox, Firebug, and FireLogger</h3>
 <p><span class="tech_progName">CF-FireLogger</span> provides output which is parsed by FireLogger which is an extension to Firebug, which in itself is an extension for the Firefox browser. This means you must have the following items installed:</p>
@@ -176,8 +177,9 @@ function toggleImg(id) { toggleDisplayStyle(id); }
 <h3><a name="inst_opt"></a>Optional Installations and Files</h3>
 <p>While the <span class="tech_progName">firelogger.cfc</span> provides most of the functionality, there are certain enhancements which require additional files.</p>
 <h4>Using the custom trace.cfm tag/function (recommended)</h4>
-<p><span class="tech_progName">CF-FireLogger</span> provides the ability to log output to the console using the standard <span class="tech_codeCommand">cftrace</span> tag or <span class="tech_codeCommand">trace()</span> function.&nbsp; This is a huge benefit since your code will continue to run even if <span class="tech_progName">CF-FireLogger</span> is not installed.&nbsp; So, for example, you can install <span class="tech_progName">CF-FireLogger</span> just on your dev server and not worry about any left-over logging tags breaking your code when it's moved to production.&nbsp; The customized trace tag includes all the same functoinality as the original one from Adobe.&nbsp;</p>
 <p>NOTE: This involves slightly altering your ColdFuison installation. Proceed with caution and be sure to backup all modified files!</p>
+<p><span class="tech_progName">CF-FireLogger</span> provides the ability to log output to the console using the standard <span class="tech_codeCommand">cftrace</span> tag or <span class="tech_codeCommand">trace()</span> function.&nbsp; This is a huge benefit since your code will continue to run even if <span class="tech_progName">CF-FireLogger</span> is not installed.&nbsp; So, for example, you can install <span class="tech_progName">CF-FireLogger</span> just on your dev server and not worry about any left-over logging tags breaking your code when it's moved to production.&nbsp; The customized trace tag includes all the same functoinality as the original one from Adobe.</p>
+<p>The customized trace.cfm is also compatible with the <a href="http://coldfire.riaforge.org" target="_blank"><span class="tech_progName">ColdFire</span></a> <span class="tech_progName">Firebug</span> extension.&nbsp; If ColdFire is enabled and enhanced tracing is checked then trace.cfm logs rich trace output which <span class="tech_progName">ColdFire</span> can display.&nbsp; On the other hand if firelogger.cfm is set as the debug handler (see below), then the output is logged in a format <span class="tech_progName">CF-FireLogger</span>&nbsp; debug dump can display.</p>
 <ol>
   <li>To install this tag, find the <em>WEB-INF/cftags</em> folder under your ColdFusion web root folder.</li>
   <li>In this folder there should be a template named <em>trace.cfm</em>. Rename it to <em>trace_adobe.cfm</em>.</li>
@@ -242,7 +244,7 @@ function toggleImg(id) { toggleDisplayStyle(id); }
 <p>Using a password, one could theoretically leave debugging enabled on the server w/out specifying an IP address and still have the information relatively secure. Could be useful for developing from dynamic IPs!</p>
 <h2><a name="settings"></a>Settings</h2>
 <h3>Firelogger.cfc</h3>
-<p>For all possible firelogger.cfc settings, see the Parameters section of the <a href="docs/firelogger.cfc.html">cfc docs</a>.&nbsp; Most parameters can be set either at init() as name=value pairs, for example <span class="tech_codeCommand">new firelogger(</span><span class="tech_codeAttrib">password</span>=&quot;mypass&quot;<span class="tech_codeCommand">)</span>, or by using setter methods, for example <span class="tech_codeCommand">firelogger.setPassword(</span>&quot;mypass&quot;<span class="tech_codeCommand">)</span>.</p>
+<p>For all possible firelogger.cfc settings, see the Parameters section of the <a href="docs/firelogger-cfc.htm">cfc docs</a>.&nbsp; Most parameters can be set either at init() as name=value pairs, for example <span class="tech_codeCommand">new firelogger(</span><span class="tech_codeAttrib">password</span>=&quot;mypass&quot;<span class="tech_codeCommand">)</span>, or by using setter methods, for example <span class="tech_codeCommand">firelogger.setPassword(</span>&quot;mypass&quot;<span class="tech_codeCommand">)</span>.</p>
 <h3>Custom Trace options</h3>
 <p>By default, the custom trace tag will log traces to the cftrace.log ColdFusion log file, just like the official version does.&nbsp; You can disable this behavior by edting the cftags/trace.cfm file and chaning one line:</p>
 <p><span class="tech_codeCommand">&lt;cfset doTrace(</span><span class="tech_variable">attributes</span>, <strong>true</strong><span class="tech_codeCommand">)&gt;</span></p>
