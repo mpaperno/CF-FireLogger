@@ -2,9 +2,10 @@
 	Name:				trace.cfm
 	Author:			Maxim Paperno
 	Created:			Jan. 2012
-	Last Updated:	1/27/2012
-	Version:			2.11
-	History:			Added error trapping for debug info logging routine. Thanks to Brook Davies for error reports. 
+	Last Updated:	1/28/2012
+	Version:			2.1.2
+	History:			Fix for resetting logger badge colors. (jan-28-12)
+						Added error trapping for debug info logging routine. Thanks to Brook Davies for error reports. 
 							Added fallbackHandler variable. Added error trapping in support functions. (jan-27-12)
 						Added compatiblity for ColdFire debugging output. Added check for firelogger.cfm debug template is active. (jan-23-12)
 						Updated to handle trace calls via firelogger.cfc (jan-19-12)
@@ -27,7 +28,7 @@ This template is ignored if firelogger not active or causes an error (fall throu
 --->
 
 <!--- Name of the template to cfinclude in case FireLogger/ColdFire not active or if an internal error occurs.
-	Set to blank to disable any fallback. --->
+	Set to blank to disable any fallback. Default value is "trace_adobe.cfm" --->
 <cfset fallbackHandler = "trace_adobe.cfm">
 
 <!--- run on tag end if we can --->
@@ -133,7 +134,7 @@ This template is ignored if firelogger not active or causes an error (fall throu
 							request.__firelogger__.console.setLoggerFGColor("white");
 						}
 					} else {
-						request.__firelogger__.console.resetLoggerBadge();
+						request.__firelogger__.console.resetLoggerBadge(resetName=false);
 					}
 				} else {
 					request.__firelogger__.console.resetLoggerBadge();
