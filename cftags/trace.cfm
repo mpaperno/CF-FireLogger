@@ -2,9 +2,11 @@
 	Name:				trace.cfm
 	Author:			Maxim Paperno
 	Created:			Jan. 2012
-	Last Updated:	1/23/2012
-	Version:			2.1
-	History:			Added compatiblity for ColdFire debugging output. Added check for firelogger.cfm debug template is active. (jan-23-12)
+	Last Updated:	1/27/2012
+	Version:			2.11
+	History:			Added error trapping for debug info logging routine. Thanks to Brook Davies for error reports. 
+							Added fallbackHandler variable. Added error trapping in support functions. (jan-27-12)
+						Added compatiblity for ColdFire debugging output. Added check for firelogger.cfm debug template is active. (jan-23-12)
 						Updated to handle trace calls via firelogger.cfc (jan-19-12)
 						Initial version based on ColdFire project by Nathan Mische & Raymond Camden
 					
@@ -14,15 +16,19 @@ Serves two functions:
 
 Supports inline=true and abort=true directives. If inline=true then firelogger output is not generated.
 
-Supports wrting to cftrace.log file as well (just like the original trace.cfm). Disabled by default.  
-To enable this function, find the line below that reads:
+Supports wrting to cftrace.log file as well (just like the original trace.cfm). Enabled by default.
+To disable this function, find the line below that reads:
 
-<cfset doTrace(attributes, false)>
+<cfset doTrace(attributes, true)>
 
-And change the second parameter to "true".
+And change the second parameter to "false".
 
-This template is ignored if firelogger not active or causes an error (fall through to default trace handler "trace_adobe.cfm").
+This template is ignored if firelogger not active or causes an error (fall through to handler defined in fallbackHandler, below).
 --->
+
+<!--- Name of the template to cfinclude in case FireLogger/ColdFire not active or if an internal error occurs.
+	Set to blank to disable any fallback. --->
+<cfset fallbackHandler = "trace_adobe.cfm">
 
 <!--- run on tag end if we can --->
 <cfif thisTag.executionMode eq "end" or not thisTag.hasEndTag>
@@ -40,8 +46,8 @@ This template is ignored if firelogger not active or causes an error (fall throu
 		<cfset doTrace(attributes, true)>
 	
 	<!--- else use the built-in version --->
-	<cfelse>
-		<cfinclude template="trace_adobe.cfm">
+	<cfelseif Len(variables.fallbackHandler)>
+		<cfinclude template="#variables.fallbackHandler#">
 	</cfif>
 
 </cfif>
@@ -148,71 +154,80 @@ This template is ignored if firelogger not active or causes an error (fall throu
 
 		<!--- if debugger is active, log enhanced trace --->
 		<cfif IsDebugMode()>
+			<!--- Apparently the debugger might not get created properly even if IsDebugMode() returns true, so trap errors and ignore them.
+				Fixes "Its possible that a method called on a Java object created by CreateObject returned null." while
+				trying to set var data=cfdebugger.getDebugger().getData() --->
+			<cftry>
 			
-			<cfset var factory = CreateObject("java","coldfusion.server.ServiceFactory")>
-			<cfset var cfdebugger = factory.getDebuggingService()>
-			<cfset var data = cfdebugger.getDebugger().getData()>
-			<cfset var getLastTrace = "">
-			
-			<cfset var startTime = getPageContext().getFusionContext().getStartTime().getTime()>
-
-			<cfquery name="getLastTrace" dbtype="query" debug="false">
-				SELECT Max(endtime) AS lastTraceTime FROM data WHERE type = 'Trace'
-			</cfquery>
-			
-			<cfset attributes.endTime = GetTickCount() - Val(local.startTime)>
-			<cfif getLastTrace.RecordCount AND Val(getLastTrace.lastTraceTime)>
-				<cfset attributes.delta = attributes.endTime - Val(getLastTrace.lastTraceTime)>
-			</cfif>
-
-			<cfset var row = QueryAddRow(data) />
-
-			<!--- type --->
-			<cfset QuerySetCell(data, "type", "Trace", row) />
-
-			<!--- template --->
-			<cfset QuerySetCell(data, "template", local.template, row) />
-
-			<!--- line num --->
-			<cfset QuerySetCell(data, "line", local.lineno, row) />
-
-			<!--- timestamp --->
-			<cfset QuerySetCell(data, "timestamp", Now(), row) />
-
-			<!--- endTime --->
-			<cfset QuerySetCell(data,"endTime", attributes.endTime, row) />
-
-			<!--- priority (trace type) --->
-			<cfset QuerySetCell(data, "priority", attributes.type, row) />
-
-			<!--- category --->
-			<cfif StructKeyExists(attributes, "category")>
-				<cfset QuerySetCell(data, "category", ListFirst(attributes.category), row) />
-			</cfif>
-
-			<!--- message --->
-			<cfif Len(local.msg)>
-				<cfset QuerySetCell(data, "message", local.msg, row) />
-			</cfif>
-
-			<!--- result --->
-			<cfif StructKeyExists(attributes, "var")>
-				<!--- set the variable name into a blank column ("name" is not usually populated for traces) --->
-				<cfset QuerySetCell(data, "name", attributes.var, row) />
+				<cfset var factory = CreateObject("java","coldfusion.server.ServiceFactory")>
+				<cfset var cfdebugger = factory.getDebuggingService()>
+				<cfset var data = cfdebugger.getDebugger().getData()>
+				<cfset var getLastTrace = "">
 				
-				<!--- if coldfire debug is enabled, log the trace in a serialized format it can parse. --->
-				<cfif FindNoCase("coldfire.cfm", cfdebugger.settings.debug_template) AND StructKeyExists(GetHttpRequestData().headers, "x-coldfire-enhance-trace")>
-					<cfset obj = coldfire_trace_udf_encode(local.obj)>
-				<!--- if we're not using firelogger.cfm debug template, log plain-text output like the standard trace does. --->
-				<cfelseif NOT ReFindNoCase("firelogger\d*\.cfm", cfdebugger.settings.debug_template)>
-					<cfset obj = attributes.var & " = " & isSerializable(local.obj)>
+				<cfset var startTime = getPageContext().getFusionContext().getStartTime().getTime()>
+	
+				<cfquery name="getLastTrace" dbtype="query" debug="false">
+					SELECT Max(endtime) AS lastTraceTime FROM data WHERE type = 'Trace'
+				</cfquery>
+				
+				<cfset attributes.endTime = GetTickCount() - Val(local.startTime)>
+				<cfif getLastTrace.RecordCount AND Val(getLastTrace.lastTraceTime)>
+					<cfset attributes.delta = attributes.endTime - Val(getLastTrace.lastTraceTime)>
+				</cfif>
+	
+				<cfset var row = QueryAddRow(data) />
+	
+				<!--- type --->
+				<cfset QuerySetCell(data, "type", "Trace", row) />
+	
+				<!--- template --->
+				<cfset QuerySetCell(data, "template", local.template, row) />
+	
+				<!--- line num --->
+				<cfset QuerySetCell(data, "line", local.lineno, row) />
+	
+				<!--- timestamp --->
+				<cfset QuerySetCell(data, "timestamp", Now(), row) />
+	
+				<!--- endTime --->
+				<cfset QuerySetCell(data,"endTime", attributes.endTime, row) />
+	
+				<!--- priority (trace type) --->
+				<cfset QuerySetCell(data, "priority", attributes.type, row) />
+	
+				<!--- category --->
+				<cfif StructKeyExists(attributes, "category")>
+					<cfset QuerySetCell(data, "category", ListFirst(attributes.category), row) />
+				</cfif>
+	
+				<!--- message --->
+				<cfif Len(local.msg)>
+					<cfset QuerySetCell(data, "message", local.msg, row) />
+				</cfif>
+	
+				<!--- result --->
+				<cfif StructKeyExists(attributes, "var")>
+					<!--- set the variable name into a blank column ("name" is not usually populated for traces) --->
+					<cfset QuerySetCell(data, "name", attributes.var, row) />
+					
+					<!--- if coldfire debug is enabled, log the trace in a serialized format it can parse. --->
+					<cfif FindNoCase("coldfire.cfm", cfdebugger.settings.debug_template) AND StructKeyExists(GetHttpRequestData().headers, "x-coldfire-enhance-trace")>
+						<cfset obj = coldfire_trace_udf_encode(local.obj)>
+					<!--- if we're not using firelogger.cfm debug template, log plain-text output like the standard trace does. --->
+					<cfelseif NOT ReFindNoCase("firelogger\d*\.cfm", cfdebugger.settings.debug_template)>
+						<cfset obj = attributes.var & " = " & isSerializable(local.obj)>
+					</cfif>
+					
+					<cfset QuerySetCell(data, "result", local.obj, row) />
 				</cfif>
 				
-				<cfset QuerySetCell(data, "result", local.obj, row) />
-			</cfif>
-	
+				<cfcatch type="any">
+					<!--- ignore errors when writing to debug info
+							TODO: handle this better? --->
+				</cfcatch>
+			</cftry>
 		</cfif>
-	
+
 		<!--- dump to output if inline mode --->
 		<cfif attributes.inline>
 			<cfset doTraceOutput(attributes, template, lineno)>
@@ -228,9 +243,11 @@ This template is ignored if firelogger not active or causes an error (fall throu
 		</cfif>
 	
 		<cfcatch type="any">
-			<!--- panic attack... fall through to default template --->
-			<cfinclude template="trace_adobe.cfm">
-			<!---<cfdump var="#cfcatch#">--->
+			<!--- panic attack... fall through to fallback template, if configured --->
+			<!---<cfdump var="#cfcatch#"><cfexit>--->
+			<cfif Len(variables.fallbackHandler)>
+				<cfinclude template="#variables.fallbackHandler#">
+			</cfif>
 		</cfcatch>
 	</cftry>
 	
@@ -240,51 +257,62 @@ This template is ignored if firelogger not active or causes an error (fall throu
 	<cfargument name="attributes">
 	<cfargument name="template">
 	<cfargument name="lineno">
-	
-	<table cellspacing="0" cellpadding="0" border="0" bgcolor="white">
-	<tbody>
-		<tr>
-			<td>
-				<img alt="#attributes.type# type" src="/CFIDE/debug/images/#attributes.type#_16x16.gif">
-				<font color="orange">
-					<b>
-						[CFTRACE #TimeFormat(Now(), "HH:mm:ss.LLL")#] [#attributes.endTime# ms (#attributes.delta#)] [#arguments.template# @ line: #arguments.lineno#] - 
-						<cfif StructKeyExists(attributes, "category")>[#ListFirst(attributes.category)#]</cfif>
-						<cfif StructKeyExists(attributes, "text")><i>#attributes.text#</i></cfif>
-					</b>
-				</font>
-			</td>
-		</tr>
-	</tbody>
-	</table>
-	<cfif StructKeyExists(attributes, "var") AND IsDefined("caller.#attributes.var#")>
-		<table cellspacing="0" cellpadding="0" border="1">
-		<tbody>
-			<tr bgcolor="orange">
-				<td align="center"><font color="white"><b>#attributes.var#</b></font></td>
-			</tr>
-			<tr style="background-color: white; color: black;">
-				<td><cfdump var="#caller[attributes.var]#"></td>
-			</tr>
-		</tbody>
-		</table>
-	</cfif>
+	<cftry>
+		
+			<table cellspacing="0" cellpadding="0" border="0" bgcolor="white">
+			<tbody>
+				<tr>
+					<td>
+						<img alt="#attributes.type# type" src="/CFIDE/debug/images/#attributes.type#_16x16.gif">
+						<font color="orange">
+							<b>
+								[CFTRACE #TimeFormat(Now(), "HH:mm:ss.LLL")#] [#attributes.endTime# ms (#attributes.delta#)] [#arguments.template# @ line: #arguments.lineno#] - 
+								<cfif StructKeyExists(attributes, "category")>[#ListFirst(attributes.category)#]</cfif>
+								<cfif StructKeyExists(attributes, "text")><i>#attributes.text#</i></cfif>
+							</b>
+						</font>
+					</td>
+				</tr>
+			</tbody>
+			</table>
+			<cfif StructKeyExists(attributes, "var") AND IsDefined("caller.#attributes.var#")>
+				<table cellspacing="0" cellpadding="0" border="1">
+				<tbody>
+					<tr bgcolor="orange">
+						<td align="center"><font color="white"><b>#attributes.var#</b></font></td>
+					</tr>
+					<tr style="background-color: white; color: black;">
+						<td><cfdump var="#caller[attributes.var]#"></td>
+					</tr>
+				</tbody>
+				</table>
+			</cfif>
+		
+		<cfcatch type="Any" >
+			Got error trying to format dump output: #cfcatch.message#; #cfcatch.detail#
+		</cfcatch>
+	</cftry>
+
 </cffunction>
 
 <cffunction output="true" name="writeTraceLog" hint="Writes to cftrace.log just like the original trace.cfm.">
 	<cfargument name="attributes">
 	<cfargument name="template">
 	<cfargument name="lineno">
-	
-	<cfset var logText = "[" & attributes.endTime & "ms (" & attributes.delta & ")] [" & arguments.template & " @ line: " & arguments.lineno & "] - ">
-	<cfif StructKeyExists(attributes, "var") AND IsDefined("caller.#attributes.var#")>
-		<cfset logText = logText & "[" & attributes.var & " = " & isSerializable(caller[attributes.var]) & "]">
-	</cfif>
-	<cfif StructKeyExists(attributes, "text")>
-		<cfset logText = logText & " " & attributes.text>
-	</cfif>
-	<cflog file="cftrace.log" application="true" type="#attributes.type#" text="#local.logText#" >
-
+	<cftry>
+		<cfset var logText = "[" & attributes.endTime & "ms (" & attributes.delta & ")] [" & arguments.template & " @ line: " & arguments.lineno & "] - ">
+		<cfif StructKeyExists(attributes, "var") AND IsDefined("caller.#attributes.var#")>
+			<cfset logText = logText & "[" & attributes.var & " = " & isSerializable(caller[attributes.var]) & "]">
+		</cfif>
+		<cfif StructKeyExists(attributes, "text")>
+			<cfset logText = logText & " " & attributes.text>
+		</cfif>
+		<cflog file="cftrace.log" application="true" type="#attributes.type#" text="#local.logText#" >
+		
+		<cfcatch type="any">
+			<cflog file="cftrace.log" application="true" type="#attributes.type#" text="Got error trying to write to log: #cfcatch.message#; #cfcatch.detail#" >
+		</cfcatch>
+	</cftry>
 </cffunction>
 
 <cfscript>
