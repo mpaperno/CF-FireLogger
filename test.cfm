@@ -1,9 +1,11 @@
 <html>
 	<head>
-		<title>CF FireLogger Test Page</title>
+		<title>CF-FireLogger Test Page</title>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+		<script language="JavaScript">$(document).ready(function(){ $('#testAjaxResult').load('firelogger_test.cfc?method=init'); });</script>
 	</head>
 	<body>
-		<h1>CF FireLogger Test Page</h1>
+		<h1>CF-FireLogger Test Page</h1>
 
 <!--- show variables scope in debug info dump 
 	(this is a firelogger debug template setting, not required to use firelogger.cfc)
@@ -14,13 +16,15 @@
 <cftimer label="myTestTimer" type="debug">
 
 <cfscript>
-
-// instantiate the logger.
-// all arguments are optional.
-// for complete list of arguments, see cfc docs.
-console = new firelogger(debugMode=false, debugLevel="info", fallbackLogMethod="trace-inline");
-
 try {
+	
+	// instantiate the logger.
+	console = new firelogger();
+	
+	// You can, optionally, pass arguments when initializing the object
+	// For complete list of arguments, see cfc docs (/docs/firelogger-cfc.htm in the distribution archive).
+	//console = new firelogger(debugMode=false, debugLevel="info", fallbackLogMethod="trace-inline");
+
 	//define some stuff to dump
 	for (i=1; i <= 5; i=i+1) { myArray[i] = "this is " & i;	}
 	myStruct = {"a"=1,"b"=2,"c"='orange',"d"=myArray};
@@ -154,11 +158,14 @@ function udf_second(arg1) {
 			<input type="file" name="fileUpload" size="30"></p>
 		<p><input type="submit" value="Test" /></p>
 	</form>
-
-	<p>Source of this file:
+	
+	<br/>
+	AJAX result:<br/>
+	<div id="testAjaxResult" style="width: 90px; height: 25px; overflow: hidden; border: 1px solid gray; padding: 5px;"></div>
+	<br/>
+	Source of this file:<br/>
 		<div style="width: 95%; height: 400px; overflow: auto; border: 1px solid gray; padding: 10px;">
 			<pre><cfoutput>#HtmlEditFormat(source)#</cfoutput></pre>
 		</div>
-	</p>
-	</body>
-</html>
+
+</body></html>
