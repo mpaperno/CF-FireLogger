@@ -2,20 +2,21 @@
 	Name:				firelogger.cfc
 	Author:			Maxim Paperno
 	Created:			Jan. 2012
-	Last Updated:	1/24/2012
-	Version:			1.02
-	History:			Minor method meta info updates. (jan-24-12)
+	Last Updated:	1/28/2012
+	Version:			1.03
+	History:			Added attributes to resetLoggerBadge to allow reset of name/colors/both. (jan-28-12)
+						Minor method meta info updates. (jan-24-12)
 						Auto-set level to error if logging cfcatch object. Fix for passing pre-formatted error report. (jan-24-12)
 						Initial version.
 
-Handles server-side output for FireLogger Firebug plugin.
+Handles server-side output for the FireLogger (http://firelogger.binaryage.com) Firebug plugin.
 
 ( FireLogger output spec: https://github.com/darwin/firelogger/wiki/ )
 --->
 
 <cfcomponent displayname="CF-FireLogger" 
 				accessors="true" 
-				hint="This component handles logging output to a browser console like Firebug with FireLogger extension.">
+				hint="This component handles server-side output for the FireLogger (http://firelogger.binaryage.com) Firebug plugin.">
 
 <!--- Property declarations.
 	
@@ -131,7 +132,7 @@ Handles server-side output for FireLogger Firebug plugin.
 	// set defaults for properties here
 	// keep "obj" undefined to simplify testing for its existence
 	
-	variables.version = "1.02";
+	variables.version = "1.03";
 	
 	variables.projectURL = "http://cffirelogger.riaforge.org/";
 	variables.fireloggerURL = "http://firelogger.binaryage.com/";
@@ -773,11 +774,14 @@ Handles server-side output for FireLogger Firebug plugin.
 	 * Sets the "badge" settings to default. The badge is the colored label that appears on the right
 	 * of each logged line in FireLogger.
 	 */
-	public void function resetLoggerBadge() {
+	public void function resetLoggerBadge(boolean resetName = true, boolean resetColors = true) {
 		// logger "badge" settings
-		variables.loggerName = "CF";
-		variables.loggerBGColor = "##315F81";
-		variables.loggerFGColor = "##FFFFFF";
+		if ( arguments.resetName ) {
+			variables.loggerName = "CF"; }
+		if ( arguments.resetColors ) {
+			variables.loggerBGColor = "##315F81";
+			variables.loggerFGColor = "##FFFFFF";
+		}
 	}
 	
 	/**
