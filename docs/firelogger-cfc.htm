@@ -34,359 +34,359 @@
 		</style>
 	</head>
 	<body style="padding-bottom : 800px;">
-<font size="-2">Firelogger.us.wdg.cf.firelogger</font>
-<br>
-<font size="+1">
-<b>Component firelogger (CF-FireLogger)</b>
-</font>
-<br>
-<br>
-<br>
-<table>
-<tr>
-<td>hierarchy:</td>
-<td>
-	WEB-INF.cftags.component
+		<font size="-2">us.wdg.cf.firelogger</font>
+		<br>
+		<font size="+1">
+			<b>Component firelogger (CF-FireLogger)</b>
+		</font>
+		<br>
+		<br>
+		<br>
+		<table>
+			<tr>
+			<td>hierarchy:</td>
+			<td>
+				<a href="/CFIDE/componentutils/cfcexplorer.cfc?method=getcfcinhtml&name=WEB-INF.cftags.component">WEB-INF.cftags.component</a>
+				<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Firelogger.us.wdg.cf.firelogger
+				<br> </td>
+			</tr>
+			<tr>
+			<td>path:</td>
+			<td>\us\wdg\cf\firelogger.cfc</td>
+			</tr>
+			<tr>
+			<td>serializable:</td>
+			<td>Yes</td>
+			</tr>
+			<p>This component handles server-side output for the FireLogger (http://firelogger.binaryage.com) Firebug plugin.</p>
+			<tr>
+			<td>properties:</td>
+			<br>
+			<td>
+				<a href="#property_debugLevel">debugLevel</a>, <a href="#property_debugMode">debugMode</a>, <a href="#property_debugTraceInline">debugTraceInline</a>, <a href="#property_fallbackLogMethod">fallbackLogMethod</a>, <a href="#property_filename">filename</a>, <a href="#property_isConsoleEnabled">isConsoleEnabled</a>, <a href="#property_lineno">lineno</a>, <a href="#property_loggerBGColor">loggerBGColor</a>, <a href="#property_loggerFGColor">loggerFGColor</a>, <a href="#property_loggerName">loggerName</a>, <a href="#property_maxEncodeDepth">maxEncodeDepth</a>, <a href="#property_maxHeaderLength">maxHeaderLength</a>, <a href="#property_obj">obj</a>, <a href="#property_password">password</a>, <a href="#property_text">text</a>, <a href="#property_type">type</a>, <a href="#property_valuesAlreadySerialized">valuesAlreadySerialized</a>, <a href="#property_version">version</a>
+			</td>
+			</tr>
+			<tr>
+			<td>methods:</td>
+			<td>
+				<a href="#method_buildHeaders">buildHeaders</a>*, <a href="#method_clientVersionCheck">clientVersionCheck</a>*, <a href="#method_critical">critical</a>, <a href="#method_doLog">doLog</a>*, <a href="#method_encodeJSON">encodeJSON</a>, <a href="#method_err">err</a>, <a href="#method_error">error</a>, <a href="#method_fireloggerPasswordCheck">fireloggerPasswordCheck</a>*, <a href="#method_formatErrorOutput">formatErrorOutput</a>, <a href="#method_getCallerFileLine">getCallerFileLine</a>*, <a href="#method_GETDEBUGLEVEL">GETDEBUGLEVEL</a>, <a href="#method_GETDEBUGMODE">GETDEBUGMODE</a>, <a href="#method_GETDEBUGTRACEINLINE">GETDEBUGTRACEINLINE</a>, <a href="#method_GETFALLBACKLOGMETHOD">GETFALLBACKLOGMETHOD</a>, <a href="#method_GETISCONSOLEENABLED">GETISCONSOLEENABLED</a>, <a href="#method_GETLOGGERBGCOLOR">GETLOGGERBGCOLOR</a>, <a href="#method_GETLOGGERFGCOLOR">GETLOGGERFGCOLOR</a>, <a href="#method_GETLOGGERNAME">GETLOGGERNAME</a>, <a href="#method_GETOBJ">GETOBJ</a>, <a href="#method_getParameters">getParameters</a>*, <a href="#method_GETTEXT">GETTEXT</a>, <a href="#method_GETTYPE">GETTYPE</a>, <a href="#method_GETVERSION">GETVERSION</a>, <a href="#method_info">info</a>, <a href="#method_init">init</a>, <a href="#method_log">log</a>, <a href="#method_logProxy">logProxy</a>*, <a href="#method_panic">panic</a>*, <a href="#method_resetLoggerBadge">resetLoggerBadge</a>, <a href="#method_sendHeaders">sendHeaders</a>*, <a href="#method_SETDEBUGLEVEL">SETDEBUGLEVEL</a>, <a href="#method_SETDEBUGMODE">SETDEBUGMODE</a>, <a href="#method_SETDEBUGTRACEINLINE">SETDEBUGTRACEINLINE</a>, <a href="#method_SETFALLBACKLOGMETHOD">SETFALLBACKLOGMETHOD</a>, <a href="#method_SETFILENAME">SETFILENAME</a>, <a href="#method_setIsConsoleEnabled">setIsConsoleEnabled</a>*, <a href="#method_SETLINENO">SETLINENO</a>, <a href="#method_SETLOGGERBGCOLOR">SETLOGGERBGCOLOR</a>, <a href="#method_SETLOGGERFGCOLOR">SETLOGGERFGCOLOR</a>, <a href="#method_SETLOGGERNAME">SETLOGGERNAME</a>, <a href="#method_SETMAXENCODEDEPTH">SETMAXENCODEDEPTH</a>, <a href="#method_SETMAXHEADERLENGTH">SETMAXHEADERLENGTH</a>, <a href="#method_SETOBJ">SETOBJ</a>, <a href="#method_setParameters">setParameters</a>*, <a href="#method_setPassword">setPassword</a>, <a href="#method_SETTEXT">SETTEXT</a>, <a href="#method_SETTYPE">SETTYPE</a>, <a href="#method_SETVALUESALREADYSERIALIZED">SETVALUESALREADYSERIALIZED</a>, <a href="#method_splitStrToArray">splitStrToArray</a>*, <a href="#method_typeFL2CF">typeFL2CF</a>*, <a href="#method_warn">warn</a>
+			</td>
+			</tr>
+		</table>
+		<font size="-2">* - private method</font>
+		<br>
+		<br>
+		<table>
+			<tr>
+			<th>Property</th>
+			<th>Hint</th>
+			<th>Type</th>
+			<th>Req.</th>
+			<th>Implemented In</th>
+			<th>Default Value</th>
+			<th>Serializable</th>
+			</tr>
+			<tr>
+			<td>
+				<a name="property_debugLevel"><b>debugLevel</b></a>
+			</td>
+			<td>One of: panic : show only erros that can't be sent via headers; 
+				error : dump all errors; info: show debug info.</td>
+			<td> string </td>
+			<td></td>
+			<td>firelogger</td>
+			<td> panic </td>
+			<td>Yes</td>
+			</tr>
+			<tr>
+			<td>
+				<a name="property_debugMode"><b>debugMode</b></a>
+			</td>
+			<td>Set to true to enable CF FireLogger debugging.</td>
+			<td> boolean </td>
+			<td></td>
+			<td>firelogger</td>
+			<td> false </td>
+			<td>Yes</td>
+			</tr>
+			<tr>
+			<td>
+				<a name="property_debugTraceInline"><b>debugTraceInline</b></a>
+			</td>
+			<td>Set to true to trace debug info to current page, false to trace to debug info/log file.</td>
+			<td> boolean </td>
+			<td></td>
+			<td>firelogger</td>
+			<td> true </td>
+			<td>Yes</td>
+			</tr>
+			<tr>
+			<td>
+				<a name="property_fallbackLogMethod"><b>fallbackLogMethod</b></a>
+			</td>
+			<td>How to handle logging if FireLogger is unable to. One of: trace-inline, trace, dump, none.</td>
+			<td> string </td>
+			<td></td>
+			<td>firelogger</td>
+			<td> trace-inline </td>
+			<td>Yes</td>
+			</tr>
+			<tr>
+			<td>
+				<a name="property_filename"><b>filename</b></a>
+			</td>
+			<td>Path/name of file containig log() directive. Typically set by this component, 
+				but this setting can override it.</td>
+			<td> string </td>
+			<td></td>
+			<td>firelogger</td>
+			<td> </td>
+			<td>Yes</td>
+			</tr>
+			<tr>
+			<td>
+				<a name="property_isConsoleEnabled"><b>isConsoleEnabled</b></a>
+			</td>
+			<td>Is true if Firebug/FireLogger console is enabled (read-only).</td>
+			<td> boolean </td>
+			<td></td>
+			<td>firelogger</td>
+			<td> false </td>
+			<td>Yes</td>
+			</tr>
+			<tr>
+			<td>
+				<a name="property_lineno"><b>lineno</b></a>
+			</td>
+			<td>Line number log call was made from. Typically set by this component, 
+				but this setting can override it.</td>
+			<td> string </td>
+			<td></td>
+			<td>firelogger</td>
+			<td> ? </td>
+			<td>Yes</td>
+			</tr>
+			<tr>
+			<td>
+				<a name="property_loggerBGColor"><b>loggerBGColor</b></a>
+			</td>
+			<td>Background color for badge/label, any css color value.</td>
+			<td> string </td>
+			<td></td>
+			<td>firelogger</td>
+			<td> #315F81 </td>
+			<td>Yes</td>
+			</tr>
+			<tr>
+			<td>
+				<a name="property_loggerFGColor"><b>loggerFGColor</b></a>
+			</td>
+			<td>Foreground (text) color for badge/label, any css color value.</td>
+			<td> string </td>
+			<td></td>
+			<td>firelogger</td>
+			<td> #FFFFFF </td>
+			<td>Yes</td>
+			</tr>
+			<tr>
+			<td>
+				<a name="property_loggerName"><b>loggerName</b></a>
+			</td>
+			<td>A title for the badge/label on the right of each console logline in FireLogger.</td>
+			<td> string </td>
+			<td></td>
+			<td>firelogger</td>
+			<td> CF </td>
+			<td>Yes</td>
+			</tr>
+			<tr>
+			<td>
+				<a name="property_maxEncodeDepth"><b>maxEncodeDepth</b></a>
+			</td>
+			<td>Maximum recursion for serializing complex values.</td>
+			<td> numeric </td>
+			<td></td>
+			<td>firelogger</td>
+			<td> 30 </td>
+			<td>Yes</td>
+			</tr>
+			<tr>
+			<td>
+				<a name="property_maxHeaderLength"><b>maxHeaderLength</b></a>
+			</td>
+			<td>Maximum length of each response header line (bytes).</td>
+			<td> numeric </td>
+			<td></td>
+			<td>firelogger</td>
+			<td> 5000 </td>
+			<td>Yes</td>
+			</tr>
+			<tr>
+			<td>
+				<a name="property_obj"><b>obj</b></a>
+			</td>
+			<td>The variable to be evaluated and logged. Can be any type of value, 
+				including complex types such as structures and objects. Undefined by default</td>
+			<td> any </td>
+			<td></td>
+			<td>firelogger</td>
+			<td>-</td>
+			<td>Yes</td>
+			</tr>
+			<tr>
+			<td>
+				<a name="property_password"><b>password</b></a>
+			</td>
+			<td>FireLogger password, if one is being used (blank if not). Use setPassword('pass') to set.
+				Or during init(password='pass').</td>
+			<td> string </td>
+			<td></td>
+			<td>firelogger</td>
+			<td> </td>
+			<td>Yes</td>
+			</tr>
+			<tr>
+			<td>
+				<a name="property_text"><b>text</b></a>
+			</td>
+			<td>The plain-text message to be logged.</td>
+			<td> string </td>
+			<td></td>
+			<td>firelogger</td>
+			<td> </td>
+			<td>Yes</td>
+			</tr>
+			<tr>
+			<td>
+				<a name="property_type"><b>type</b></a>
+			</td>
+			<td>The message type. Can be one of: debug, info, warning, error, exception</td>
+			<td> string </td>
+			<td></td>
+			<td>firelogger</td>
+			<td> debug </td>
+			<td>Yes</td>
+			</tr>
+			<tr>
+			<td>
+				<a name="property_valuesAlreadySerialized"><b>valuesAlreadySerialized</b></a>
+			</td>
+			<td>Set this to true if complex data being logged is already valid JSON. 
+				Saves time evaluating if it needs to be serialized.</td>
+			<td> boolean </td>
+			<td></td>
+			<td>firelogger</td>
+			<td> false </td>
+			<td>Yes</td>
+			</tr>
+			<tr>
+			<td>
+				<a name="property_version"><b>version</b></a>
+			</td>
+			<td>CF FireLogger version number (read-only).</td>
+			<td> numeric </td>
+			<td></td>
+			<td>firelogger</td>
+			<td>-</td>
+			<td>Yes</td>
+			</tr>
+		</table>
+		<br>
+		<br>
+		<table>
+			<tr>
+			<th align="left" colspan="1">
+				<a name="method_buildHeaders">buildHeaders</a>* 
+			</th>
+			</tr>
+			<tr>
+			<td>
+				<code>
+				<i>private</i>
+				<i>void</i>
+				<b>buildHeaders</b>
+				(<i> array</i>
+				data, <i> string</i>
+				format="firelogger" 
+				)</i>
+			</code>
+			<br>
+			<br>
+			Builds variables.headers structure of headername:value pairs for the logging output based on the passed-in array of data strings.
+			<br>
+			<br>
+			Output: suppressed
+			<br>
+			Parameters:
+			<br>
+			&nbsp;&nbsp; <b>data:</b>
+			array, optional, data 
+			<br>
+			&nbsp;&nbsp; <b>format:</b>
+			string, optional, format 
+			<br>
+			<br></td>
+		</tr>
+		<tr>
+		<th align="left" colspan="1">
+			<a name="method_clientVersionCheck">clientVersionCheck</a>* 
+		</th>
+		</tr>
+		<tr>
+		<td>
+			<code>
+			<i>private</i>
+			<i>void</i>
+			<b>clientVersionCheck</b>
+			(
+			)</i>
+		</code>
+		<br>
+		<br>
+		Check console logger version against expected version and output warning in the response headers if mismatch.
+		<br>
+		<br>
+		Output: suppressed
+		<br>
+		<br></td>
+	</tr>
+	<tr>
+	<th align="left" colspan="1">
+		<a name="method_critical">critical</a>
+	</th>
+	</tr>
+	<tr>
+	<td>
+		<code>
+		<i>public</i>
+		<i>boolean</i>
+		<b>critical</b>
+		(
+		)</i>
+	</code>
 	<br>
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Firelogger.us.wdg.cf.firelogger
-	<br> </td>
+	<br>
+	critical type proxy function for log() See docs for log().
+	<br>
+	<br>
+	Output: 
+	<br>
+	<br></td>
 </tr>
-<tr>
-<td>path:</td>
-<td>\us\wdg\cf\firelogger.cfc</td>
-</tr>
-<tr>
-<td>serializable:</td>
-<td>Yes</td>
-</tr>
-<p>This component handles logging output to a browser console like Firebug with FireLogger extension.</p>
-<tr>
-<td>properties:</td>
-<br>
-<td>
-	<a href="#property_debugLevel">debugLevel</a>, <a href="#property_debugMode">debugMode</a>, <a href="#property_debugTraceInline">debugTraceInline</a>, <a href="#property_fallbackLogMethod">fallbackLogMethod</a>, <a href="#property_filename">filename</a>, <a href="#property_isConsoleEnabled">isConsoleEnabled</a>, <a href="#property_lineno">lineno</a>, <a href="#property_loggerBGColor">loggerBGColor</a>, <a href="#property_loggerFGColor">loggerFGColor</a>, <a href="#property_loggerName">loggerName</a>, <a href="#property_maxEncodeDepth">maxEncodeDepth</a>, <a href="#property_maxHeaderLength">maxHeaderLength</a>, <a href="#property_obj">obj</a>, <a href="#property_password">password</a>, <a href="#property_text">text</a>, <a href="#property_type">type</a>, <a href="#property_valuesAlreadySerialized">valuesAlreadySerialized</a>, <a href="#property_version">version</a>
-</td>
-</tr>
-<tr>
-<td>methods:</td>
-<td>
-	<a href="#method_buildHeaders">buildHeaders</a>*, <a href="#method_clientVersionCheck">clientVersionCheck</a>*, <a href="#method_critical">critical</a>, <a href="#method_doLog">doLog</a>*, <a href="#method_encodeJSON">encodeJSON</a>, <a href="#method_err">err</a>, <a href="#method_error">error</a>, <a href="#method_fireloggerPasswordCheck">fireloggerPasswordCheck</a>*, <a href="#method_formatErrorOutput">formatErrorOutput</a>, <a href="#method_getCallerFileLine">getCallerFileLine</a>*, <a href="#method_GETDEBUGLEVEL">GETDEBUGLEVEL</a>, <a href="#method_GETDEBUGMODE">GETDEBUGMODE</a>, <a href="#method_GETDEBUGTRACEINLINE">GETDEBUGTRACEINLINE</a>, <a href="#method_GETFALLBACKLOGMETHOD">GETFALLBACKLOGMETHOD</a>, <a href="#method_GETISCONSOLEENABLED">GETISCONSOLEENABLED</a>, <a href="#method_GETLOGGERBGCOLOR">GETLOGGERBGCOLOR</a>, <a href="#method_GETLOGGERFGCOLOR">GETLOGGERFGCOLOR</a>, <a href="#method_GETLOGGERNAME">GETLOGGERNAME</a>, <a href="#method_GETOBJ">GETOBJ</a>, <a href="#method_getParameters">getParameters</a>*, <a href="#method_GETTEXT">GETTEXT</a>, <a href="#method_GETTYPE">GETTYPE</a>, <a href="#method_GETVERSION">GETVERSION</a>, <a href="#method_info">info</a>, <a href="#method_init">init</a>, <a href="#method_log">log</a>, <a href="#method_logProxy">logProxy</a>*, <a href="#method_panic">panic</a>*, <a href="#method_resetLoggerBadge">resetLoggerBadge</a>, <a href="#method_sendHeaders">sendHeaders</a>*, <a href="#method_SETDEBUGLEVEL">SETDEBUGLEVEL</a>, <a href="#method_SETDEBUGMODE">SETDEBUGMODE</a>, <a href="#method_SETDEBUGTRACEINLINE">SETDEBUGTRACEINLINE</a>, <a href="#method_SETFALLBACKLOGMETHOD">SETFALLBACKLOGMETHOD</a>, <a href="#method_SETFILENAME">SETFILENAME</a>, <a href="#method_setIsConsoleEnabled">setIsConsoleEnabled</a>*, <a href="#method_SETLINENO">SETLINENO</a>, <a href="#method_SETLOGGERBGCOLOR">SETLOGGERBGCOLOR</a>, <a href="#method_SETLOGGERFGCOLOR">SETLOGGERFGCOLOR</a>, <a href="#method_SETLOGGERNAME">SETLOGGERNAME</a>, <a href="#method_SETMAXENCODEDEPTH">SETMAXENCODEDEPTH</a>, <a href="#method_SETMAXHEADERLENGTH">SETMAXHEADERLENGTH</a>, <a href="#method_SETOBJ">SETOBJ</a>, <a href="#method_setParameters">setParameters</a>*, <a href="#method_setPassword">setPassword</a>, <a href="#method_SETTEXT">SETTEXT</a>, <a href="#method_SETTYPE">SETTYPE</a>, <a href="#method_SETVALUESALREADYSERIALIZED">SETVALUESALREADYSERIALIZED</a>, <a href="#method_splitStrToArray">splitStrToArray</a>*, <a href="#method_typeFL2CF">typeFL2CF</a>*, <a href="#method_warn">warn</a>
-</td>
-</tr>
-</table>
-<font size="-2">* - private method</font>
-<br>
-<br>
-<table>
-<tr>
-<th>Property</th>
-<th>Hint</th>
-<th>Type</th>
-<th>Req.</th>
-<th>Implemented In</th>
-<th>Default Value</th>
-<th>Serializable</th>
-</tr>
-<tr>
-<td>
-	<a name="property_debugLevel"><b>debugLevel</b></a>
-</td>
-<td>One of: panic : show only erros that can't be sent via headers; 
-	error : dump all errors; info: show debug info.</td>
-<td> string </td>
-<td></td>
-<td>firelogger</td>
-<td> panic </td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>
-	<a name="property_debugMode"><b>debugMode</b></a>
-</td>
-<td>Set to true to enable CF FireLogger debugging.</td>
-<td> boolean </td>
-<td></td>
-<td>firelogger</td>
-<td> false </td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>
-	<a name="property_debugTraceInline"><b>debugTraceInline</b></a>
-</td>
-<td>Set to true to trace debug info to current page, false to trace to debug info/log file.</td>
-<td> boolean </td>
-<td></td>
-<td>firelogger</td>
-<td> true </td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>
-	<a name="property_fallbackLogMethod"><b>fallbackLogMethod</b></a>
-</td>
-<td>How to handle logging if FireLogger is unable to. One of: trace-inline, trace, dump, none.</td>
-<td> string </td>
-<td></td>
-<td>firelogger</td>
-<td> trace-inline </td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>
-	<a name="property_filename"><b>filename</b></a>
-</td>
-<td>Path/name of file containig log() directive. Typically set by this component, 
-	but this setting can override it.</td>
-<td> string </td>
-<td></td>
-<td>firelogger</td>
-<td> </td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>
-	<a name="property_isConsoleEnabled"><b>isConsoleEnabled</b></a>
-</td>
-<td>Is true if Firebug/FireLogger console is enabled (read-only).</td>
-<td> boolean </td>
-<td></td>
-<td>firelogger</td>
-<td> false </td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>
-	<a name="property_lineno"><b>lineno</b></a>
-</td>
-<td>Line number log call was made from. Typically set by this component, 
-	but this setting can override it.</td>
-<td> string </td>
-<td></td>
-<td>firelogger</td>
-<td> ? </td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>
-	<a name="property_loggerBGColor"><b>loggerBGColor</b></a>
-</td>
-<td>Background color for badge/label, any css color value.</td>
-<td> string </td>
-<td></td>
-<td>firelogger</td>
-<td> #315F81 </td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>
-	<a name="property_loggerFGColor"><b>loggerFGColor</b></a>
-</td>
-<td>Foreground (text) color for badge/label, any css color value.</td>
-<td> string </td>
-<td></td>
-<td>firelogger</td>
-<td> #FFFFFF </td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>
-	<a name="property_loggerName"><b>loggerName</b></a>
-</td>
-<td>A title for the badge/label on the right of each console logline in FireLogger.</td>
-<td> string </td>
-<td></td>
-<td>firelogger</td>
-<td> CF </td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>
-	<a name="property_maxEncodeDepth"><b>maxEncodeDepth</b></a>
-</td>
-<td>Maximum recursion for serializing complex values.</td>
-<td> numeric </td>
-<td></td>
-<td>firelogger</td>
-<td> 30 </td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>
-	<a name="property_maxHeaderLength"><b>maxHeaderLength</b></a>
-</td>
-<td>Maximum length of each response header line (bytes).</td>
-<td> numeric </td>
-<td></td>
-<td>firelogger</td>
-<td> 5000 </td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>
-	<a name="property_obj"><b>obj</b></a>
-</td>
-<td>The variable to be evaluated and logged. Can be any type of value, 
-	including complex types such as structures and objects. Undefined by default</td>
-<td> any </td>
-<td></td>
-<td>firelogger</td>
-<td>-</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>
-	<a name="property_password"><b>password</b></a>
-</td>
-<td>FireLogger password, if one is being used (blank if not). Use setPassword('pass') to set.
-	Or during init(password='pass').</td>
-<td> string </td>
-<td></td>
-<td>firelogger</td>
-<td> </td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>
-	<a name="property_text"><b>text</b></a>
-</td>
-<td>The plain-text message to be logged.</td>
-<td> string </td>
-<td></td>
-<td>firelogger</td>
-<td> </td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>
-	<a name="property_type"><b>type</b></a>
-</td>
-<td>The message type. Can be one of: debug, info, warning, error, exception</td>
-<td> string </td>
-<td></td>
-<td>firelogger</td>
-<td> debug </td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>
-	<a name="property_valuesAlreadySerialized"><b>valuesAlreadySerialized</b></a>
-</td>
-<td>Set this to true if complex data being logged is already valid JSON. 
-	Saves time evaluating if it needs to be serialized.</td>
-<td> boolean </td>
-<td></td>
-<td>firelogger</td>
-<td> false </td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>
-	<a name="property_version"><b>version</b></a>
-</td>
-<td>CF FireLogger version number (read-only).</td>
-<td> numeric </td>
-<td></td>
-<td>firelogger</td>
-<td>-</td>
-<td>Yes</td>
-</tr>
-</table>
-<br>
-<br>
-<table>
 <tr>
 <th align="left" colspan="1">
-	<a name="method_buildHeaders">buildHeaders</a>* 
+	<a name="method_doLog">doLog</a>* 
 </th>
 </tr>
 <tr>
 <td>
 	<code>
 	<i>private</i>
-	<i>void</i>
-	<b>buildHeaders</b>
-	(<i> array</i>
-	data, <i> string</i>
-	format="firelogger" 
+	<i>boolean</i>
+	<b>doLog</b>
+	(
 	)</i>
-</code>
-<br>
-<br>
-Builds variables.headers structure of headername:value pairs for the logging output based on the passed-in array of data strings.
-<br>
-<br>
-Output: suppressed
-<br>
-Parameters:
-<br>
-&nbsp;&nbsp; <b>data:</b>
-array, optional, data 
-<br>
-&nbsp;&nbsp; <b>format:</b>
-string, optional, format 
-<br>
-<br></td>
-</tr>
-<tr>
-<th align="left" colspan="1">
-<a name="method_clientVersionCheck">clientVersionCheck</a>* 
-</th>
-</tr>
-<tr>
-<td>
-<code>
-<i>private</i>
-<i>void</i>
-<b>clientVersionCheck</b>
-(
-)</i>
-</code>
-<br>
-<br>
-Check console logger version against expected version and output warning in the response headers if mismatch.
-<br>
-<br>
-Output: suppressed
-<br>
-<br></td>
-</tr>
-<tr>
-<th align="left" colspan="1">
-<a name="method_critical">critical</a>
-</th>
-</tr>
-<tr>
-<td>
-<code>
-<i>public</i>
-<i>boolean</i>
-<b>critical</b>
-(
-)</i>
-</code>
-<br>
-<br>
-critical type proxy function for log() See docs for log().
-<br>
-<br>
-Output: 
-<br>
-<br></td>
-</tr>
-<tr>
-<th align="left" colspan="1">
-<a name="method_doLog">doLog</a>* 
-</th>
-</tr>
-<tr>
-<td>
-<code>
-<i>private</i>
-<i>boolean</i>
-<b>doLog</b>
-(
-)</i>
 </code>
 <br>
 <br>
@@ -399,25 +399,25 @@ Output: enabled
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_encodeJSON">encodeJSON</a>
+	<a name="method_encodeJSON">encodeJSON</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>string</i>
-<b>encodeJSON</b>
-(<i> required any</i>
-data, <i> numeric</i>
-encodeDepth="0", <i> boolean</i>
-stringNumbers="false", <i> boolean</i>
-formatDates="true", <i> string</i>
-skipKeys="", <i> boolean</i>
-skipKeysRecursive="false", <i> boolean</i>
-preserveArrays="false", <i> numeric</i>
-preserveArraysRecurseLevels="2" 
-)</i>
+	<code>
+	<i>public</i>
+	<i>string</i>
+	<b>encodeJSON</b>
+	(<i> required any</i>
+	data, <i> numeric</i>
+	encodeDepth="0", <i> boolean</i>
+	stringNumbers="false", <i> boolean</i>
+	formatDates="true", <i> string</i>
+	skipKeys="", <i> boolean</i>
+	skipKeysRecursive="false", <i> boolean</i>
+	preserveArrays="false", <i> numeric</i>
+	preserveArraysRecurseLevels="2" 
+	)</i>
 </code>
 <br>
 <br>
@@ -456,19 +456,19 @@ numeric, optional, preserveArraysRecurseLevels
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_err">err</a>
+	<a name="method_err">err</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>void</i>
-<b>err</b>
-(<i></i>
-msg, <i></i>
-e="[runtime expression]" 
-)</i>
+	<code>
+	<i>public</i>
+	<i>void</i>
+	<b>err</b>
+	(<i></i>
+	msg, <i></i>
+	e="[runtime expression]" 
+	)</i>
 </code>
 <br>
 <br>
@@ -489,17 +489,17 @@ any, optional, e - error object (result of catch)
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_error">error</a>
+	<a name="method_error">error</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>boolean</i>
-<b>error</b>
-(
-)</i>
+	<code>
+	<i>public</i>
+	<i>boolean</i>
+	<b>error</b>
+	(
+	)</i>
 </code>
 <br>
 <br>
@@ -512,17 +512,17 @@ Output:
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_fireloggerPasswordCheck">fireloggerPasswordCheck</a>* 
+	<a name="method_fireloggerPasswordCheck">fireloggerPasswordCheck</a>* 
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>private</i>
-<i>boolean</i>
-<b>fireloggerPasswordCheck</b>
-(
-)</i>
+	<code>
+	<i>private</i>
+	<i>boolean</i>
+	<b>fireloggerPasswordCheck</b>
+	(
+	)</i>
 </code>
 <br>
 <br>
@@ -535,19 +535,19 @@ Output: suppressed
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_formatErrorOutput">formatErrorOutput</a>
+	<a name="method_formatErrorOutput">formatErrorOutput</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>struct</i>
-<b>formatErrorOutput</b>
-(<i></i>
-text="", <i></i>
-e="[runtime expression]" 
-)</i>
+	<code>
+	<i>public</i>
+	<i>struct</i>
+	<b>formatErrorOutput</b>
+	(<i></i>
+	text="", <i></i>
+	e="[runtime expression]" 
+	)</i>
 </code>
 <br>
 <br>
@@ -568,17 +568,17 @@ any, optional, e
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_getCallerFileLine">getCallerFileLine</a>* 
+	<a name="method_getCallerFileLine">getCallerFileLine</a>* 
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>private</i>
-<i>array</i>
-<b>getCallerFileLine</b>
-(
-)</i>
+	<code>
+	<i>private</i>
+	<i>array</i>
+	<b>getCallerFileLine</b>
+	(
+	)</i>
 </code>
 <br>
 <br>
@@ -591,17 +591,17 @@ Output:
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_GETDEBUGLEVEL">GETDEBUGLEVEL</a>
+	<a name="method_GETDEBUGLEVEL">GETDEBUGLEVEL</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>string</i>
-<b>GETDEBUGLEVEL</b>
-(
-)</i>
+	<code>
+	<i>public</i>
+	<i>string</i>
+	<b>GETDEBUGLEVEL</b>
+	(
+	)</i>
 </code>
 <br>
 <br>
@@ -611,17 +611,17 @@ Output:
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_GETDEBUGMODE">GETDEBUGMODE</a>
+	<a name="method_GETDEBUGMODE">GETDEBUGMODE</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>boolean</i>
-<b>GETDEBUGMODE</b>
-(
-)</i>
+	<code>
+	<i>public</i>
+	<i>boolean</i>
+	<b>GETDEBUGMODE</b>
+	(
+	)</i>
 </code>
 <br>
 <br>
@@ -631,17 +631,17 @@ Output:
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_GETDEBUGTRACEINLINE">GETDEBUGTRACEINLINE</a>
+	<a name="method_GETDEBUGTRACEINLINE">GETDEBUGTRACEINLINE</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>boolean</i>
-<b>GETDEBUGTRACEINLINE</b>
-(
-)</i>
+	<code>
+	<i>public</i>
+	<i>boolean</i>
+	<b>GETDEBUGTRACEINLINE</b>
+	(
+	)</i>
 </code>
 <br>
 <br>
@@ -651,17 +651,17 @@ Output:
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_GETFALLBACKLOGMETHOD">GETFALLBACKLOGMETHOD</a>
+	<a name="method_GETFALLBACKLOGMETHOD">GETFALLBACKLOGMETHOD</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>string</i>
-<b>GETFALLBACKLOGMETHOD</b>
-(
-)</i>
+	<code>
+	<i>public</i>
+	<i>string</i>
+	<b>GETFALLBACKLOGMETHOD</b>
+	(
+	)</i>
 </code>
 <br>
 <br>
@@ -671,17 +671,17 @@ Output:
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_GETISCONSOLEENABLED">GETISCONSOLEENABLED</a>
+	<a name="method_GETISCONSOLEENABLED">GETISCONSOLEENABLED</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>boolean</i>
-<b>GETISCONSOLEENABLED</b>
-(
-)</i>
+	<code>
+	<i>public</i>
+	<i>boolean</i>
+	<b>GETISCONSOLEENABLED</b>
+	(
+	)</i>
 </code>
 <br>
 <br>
@@ -691,17 +691,17 @@ Output:
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_GETLOGGERBGCOLOR">GETLOGGERBGCOLOR</a>
+	<a name="method_GETLOGGERBGCOLOR">GETLOGGERBGCOLOR</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>string</i>
-<b>GETLOGGERBGCOLOR</b>
-(
-)</i>
+	<code>
+	<i>public</i>
+	<i>string</i>
+	<b>GETLOGGERBGCOLOR</b>
+	(
+	)</i>
 </code>
 <br>
 <br>
@@ -711,17 +711,17 @@ Output:
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_GETLOGGERFGCOLOR">GETLOGGERFGCOLOR</a>
+	<a name="method_GETLOGGERFGCOLOR">GETLOGGERFGCOLOR</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>string</i>
-<b>GETLOGGERFGCOLOR</b>
-(
-)</i>
+	<code>
+	<i>public</i>
+	<i>string</i>
+	<b>GETLOGGERFGCOLOR</b>
+	(
+	)</i>
 </code>
 <br>
 <br>
@@ -731,17 +731,17 @@ Output:
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_GETLOGGERNAME">GETLOGGERNAME</a>
+	<a name="method_GETLOGGERNAME">GETLOGGERNAME</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>string</i>
-<b>GETLOGGERNAME</b>
-(
-)</i>
+	<code>
+	<i>public</i>
+	<i>string</i>
+	<b>GETLOGGERNAME</b>
+	(
+	)</i>
 </code>
 <br>
 <br>
@@ -751,17 +751,17 @@ Output:
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_GETOBJ">GETOBJ</a>
+	<a name="method_GETOBJ">GETOBJ</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>any</i>
-<b>GETOBJ</b>
-(
-)</i>
+	<code>
+	<i>public</i>
+	<i>any</i>
+	<b>GETOBJ</b>
+	(
+	)</i>
 </code>
 <br>
 <br>
@@ -771,17 +771,17 @@ Output:
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_getParameters">getParameters</a>* 
+	<a name="method_getParameters">getParameters</a>* 
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>private</i>
-<i>struct</i>
-<b>getParameters</b>
-(
-)</i>
+	<code>
+	<i>private</i>
+	<i>struct</i>
+	<b>getParameters</b>
+	(
+	)</i>
 </code>
 <br>
 <br>
@@ -794,17 +794,17 @@ Output:
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_GETTEXT">GETTEXT</a>
+	<a name="method_GETTEXT">GETTEXT</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>string</i>
-<b>GETTEXT</b>
-(
-)</i>
+	<code>
+	<i>public</i>
+	<i>string</i>
+	<b>GETTEXT</b>
+	(
+	)</i>
 </code>
 <br>
 <br>
@@ -814,17 +814,17 @@ Output:
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_GETTYPE">GETTYPE</a>
+	<a name="method_GETTYPE">GETTYPE</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>string</i>
-<b>GETTYPE</b>
-(
-)</i>
+	<code>
+	<i>public</i>
+	<i>string</i>
+	<b>GETTYPE</b>
+	(
+	)</i>
 </code>
 <br>
 <br>
@@ -834,17 +834,17 @@ Output:
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_GETVERSION">GETVERSION</a>
+	<a name="method_GETVERSION">GETVERSION</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>numeric</i>
-<b>GETVERSION</b>
-(
-)</i>
+	<code>
+	<i>public</i>
+	<i>numeric</i>
+	<b>GETVERSION</b>
+	(
+	)</i>
 </code>
 <br>
 <br>
@@ -854,17 +854,17 @@ Output:
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_info">info</a>
+	<a name="method_info">info</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>boolean</i>
-<b>info</b>
-(
-)</i>
+	<code>
+	<i>public</i>
+	<i>boolean</i>
+	<b>info</b>
+	(
+	)</i>
 </code>
 <br>
 <br>
@@ -877,17 +877,17 @@ Output:
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_init">init</a>
+	<a name="method_init">init</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>any</i>
-<b>init</b>
-(
-)</i>
+	<code>
+	<i>public</i>
+	<i>any</i>
+	<b>init</b>
+	(
+	)</i>
 </code>
 <br>
 <br>
@@ -900,17 +900,17 @@ Output: suppressed
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_log">log</a>
+	<a name="method_log">log</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>boolean</i>
-<b>log</b>
-(
-)</i>
+	<code>
+	<i>public</i>
+	<i>boolean</i>
+	<b>log</b>
+	(
+	)</i>
 </code>
 <br>
 <br>
@@ -923,19 +923,19 @@ Output:
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_logProxy">logProxy</a>* 
+	<a name="method_logProxy">logProxy</a>* 
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>private</i>
-<i>boolean</i>
-<b>logProxy</b>
-(<i> string</i>
-type="", <i> required struct</i>
-args 
-)</i>
+	<code>
+	<i>private</i>
+	<i>boolean</i>
+	<b>logProxy</b>
+	(<i> string</i>
+	type="", <i> required struct</i>
+	args 
+	)</i>
 </code>
 <br>
 <br>
@@ -956,19 +956,19 @@ struct, required, args
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_panic">panic</a>* 
+	<a name="method_panic">panic</a>* 
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>private</i>
-<i>void</i>
-<b>panic</b>
-(<i></i>
-msg, <i></i>
-e="[runtime expression]" 
-)</i>
+	<code>
+	<i>private</i>
+	<i>void</i>
+	<b>panic</b>
+	(<i></i>
+	msg, <i></i>
+	e="[runtime expression]" 
+	)</i>
 </code>
 <br>
 <br>
@@ -989,17 +989,19 @@ any, optional, e - error object (result of catch)
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_resetLoggerBadge">resetLoggerBadge</a>
+	<a name="method_resetLoggerBadge">resetLoggerBadge</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>void</i>
-<b>resetLoggerBadge</b>
-(
-)</i>
+	<code>
+	<i>public</i>
+	<i>void</i>
+	<b>resetLoggerBadge</b>
+	(<i> boolean</i>
+	resetName="true", <i> boolean</i>
+	resetColors="true" 
+	)</i>
 </code>
 <br>
 <br>
@@ -1008,21 +1010,29 @@ Sets the "badge" settings to default. The badge is the colored label that appear
 <br>
 Output: 
 <br>
+Parameters:
+<br>
+&nbsp;&nbsp; <b>resetName:</b>
+boolean, optional, resetName 
+<br>
+&nbsp;&nbsp; <b>resetColors:</b>
+boolean, optional, resetColors 
+<br>
 <br></td>
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_sendHeaders">sendHeaders</a>* 
+	<a name="method_sendHeaders">sendHeaders</a>* 
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>private</i>
-<i>void</i>
-<b>sendHeaders</b>
-(
-)</i>
+	<code>
+	<i>private</i>
+	<i>void</i>
+	<b>sendHeaders</b>
+	(
+	)</i>
 </code>
 <br>
 <br>
@@ -1035,18 +1045,18 @@ Output: suppressed
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_SETDEBUGLEVEL">SETDEBUGLEVEL</a>
+	<a name="method_SETDEBUGLEVEL">SETDEBUGLEVEL</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>void</i>
-<b>SETDEBUGLEVEL</b>
-(<i> required string</i>
-debugLevel 
-)</i>
+	<code>
+	<i>public</i>
+	<i>void</i>
+	<b>SETDEBUGLEVEL</b>
+	(<i> required string</i>
+	debugLevel 
+	)</i>
 </code>
 <br>
 <br>
@@ -1061,18 +1071,18 @@ string, required, debugLevel
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_SETDEBUGMODE">SETDEBUGMODE</a>
+	<a name="method_SETDEBUGMODE">SETDEBUGMODE</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>void</i>
-<b>SETDEBUGMODE</b>
-(<i> required boolean</i>
-debugMode 
-)</i>
+	<code>
+	<i>public</i>
+	<i>void</i>
+	<b>SETDEBUGMODE</b>
+	(<i> required boolean</i>
+	debugMode 
+	)</i>
 </code>
 <br>
 <br>
@@ -1087,18 +1097,18 @@ boolean, required, debugMode
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_SETDEBUGTRACEINLINE">SETDEBUGTRACEINLINE</a>
+	<a name="method_SETDEBUGTRACEINLINE">SETDEBUGTRACEINLINE</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>void</i>
-<b>SETDEBUGTRACEINLINE</b>
-(<i> required boolean</i>
-debugTraceInline 
-)</i>
+	<code>
+	<i>public</i>
+	<i>void</i>
+	<b>SETDEBUGTRACEINLINE</b>
+	(<i> required boolean</i>
+	debugTraceInline 
+	)</i>
 </code>
 <br>
 <br>
@@ -1113,18 +1123,18 @@ boolean, required, debugTraceInline
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_SETFALLBACKLOGMETHOD">SETFALLBACKLOGMETHOD</a>
+	<a name="method_SETFALLBACKLOGMETHOD">SETFALLBACKLOGMETHOD</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>void</i>
-<b>SETFALLBACKLOGMETHOD</b>
-(<i> required string</i>
-fallbackLogMethod 
-)</i>
+	<code>
+	<i>public</i>
+	<i>void</i>
+	<b>SETFALLBACKLOGMETHOD</b>
+	(<i> required string</i>
+	fallbackLogMethod 
+	)</i>
 </code>
 <br>
 <br>
@@ -1139,18 +1149,18 @@ string, required, fallbackLogMethod
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_SETFILENAME">SETFILENAME</a>
+	<a name="method_SETFILENAME">SETFILENAME</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>void</i>
-<b>SETFILENAME</b>
-(<i> required string</i>
-filename 
-)</i>
+	<code>
+	<i>public</i>
+	<i>void</i>
+	<b>SETFILENAME</b>
+	(<i> required string</i>
+	filename 
+	)</i>
 </code>
 <br>
 <br>
@@ -1165,17 +1175,17 @@ string, required, filename
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_setIsConsoleEnabled">setIsConsoleEnabled</a>* 
+	<a name="method_setIsConsoleEnabled">setIsConsoleEnabled</a>* 
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>private</i>
-<i>boolean</i>
-<b>setIsConsoleEnabled</b>
-(
-)</i>
+	<code>
+	<i>private</i>
+	<i>boolean</i>
+	<b>setIsConsoleEnabled</b>
+	(
+	)</i>
 </code>
 <br>
 <br>
@@ -1188,18 +1198,18 @@ Output: suppressed
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_SETLINENO">SETLINENO</a>
+	<a name="method_SETLINENO">SETLINENO</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>void</i>
-<b>SETLINENO</b>
-(<i> required string</i>
-lineno 
-)</i>
+	<code>
+	<i>public</i>
+	<i>void</i>
+	<b>SETLINENO</b>
+	(<i> required string</i>
+	lineno 
+	)</i>
 </code>
 <br>
 <br>
@@ -1214,18 +1224,18 @@ string, required, lineno
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_SETLOGGERBGCOLOR">SETLOGGERBGCOLOR</a>
+	<a name="method_SETLOGGERBGCOLOR">SETLOGGERBGCOLOR</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>void</i>
-<b>SETLOGGERBGCOLOR</b>
-(<i> required string</i>
-loggerBGColor 
-)</i>
+	<code>
+	<i>public</i>
+	<i>void</i>
+	<b>SETLOGGERBGCOLOR</b>
+	(<i> required string</i>
+	loggerBGColor 
+	)</i>
 </code>
 <br>
 <br>
@@ -1240,18 +1250,18 @@ string, required, loggerBGColor
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_SETLOGGERFGCOLOR">SETLOGGERFGCOLOR</a>
+	<a name="method_SETLOGGERFGCOLOR">SETLOGGERFGCOLOR</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>void</i>
-<b>SETLOGGERFGCOLOR</b>
-(<i> required string</i>
-loggerFGColor 
-)</i>
+	<code>
+	<i>public</i>
+	<i>void</i>
+	<b>SETLOGGERFGCOLOR</b>
+	(<i> required string</i>
+	loggerFGColor 
+	)</i>
 </code>
 <br>
 <br>
@@ -1266,18 +1276,18 @@ string, required, loggerFGColor
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_SETLOGGERNAME">SETLOGGERNAME</a>
+	<a name="method_SETLOGGERNAME">SETLOGGERNAME</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>void</i>
-<b>SETLOGGERNAME</b>
-(<i> required string</i>
-loggerName 
-)</i>
+	<code>
+	<i>public</i>
+	<i>void</i>
+	<b>SETLOGGERNAME</b>
+	(<i> required string</i>
+	loggerName 
+	)</i>
 </code>
 <br>
 <br>
@@ -1292,18 +1302,18 @@ string, required, loggerName
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_SETMAXENCODEDEPTH">SETMAXENCODEDEPTH</a>
+	<a name="method_SETMAXENCODEDEPTH">SETMAXENCODEDEPTH</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>void</i>
-<b>SETMAXENCODEDEPTH</b>
-(<i> required numeric</i>
-maxEncodeDepth 
-)</i>
+	<code>
+	<i>public</i>
+	<i>void</i>
+	<b>SETMAXENCODEDEPTH</b>
+	(<i> required numeric</i>
+	maxEncodeDepth 
+	)</i>
 </code>
 <br>
 <br>
@@ -1318,18 +1328,18 @@ numeric, required, maxEncodeDepth
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_SETMAXHEADERLENGTH">SETMAXHEADERLENGTH</a>
+	<a name="method_SETMAXHEADERLENGTH">SETMAXHEADERLENGTH</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>void</i>
-<b>SETMAXHEADERLENGTH</b>
-(<i> required numeric</i>
-maxHeaderLength 
-)</i>
+	<code>
+	<i>public</i>
+	<i>void</i>
+	<b>SETMAXHEADERLENGTH</b>
+	(<i> required numeric</i>
+	maxHeaderLength 
+	)</i>
 </code>
 <br>
 <br>
@@ -1344,18 +1354,18 @@ numeric, required, maxHeaderLength
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_SETOBJ">SETOBJ</a>
+	<a name="method_SETOBJ">SETOBJ</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>void</i>
-<b>SETOBJ</b>
-(<i> required any</i>
-obj 
-)</i>
+	<code>
+	<i>public</i>
+	<i>void</i>
+	<b>SETOBJ</b>
+	(<i> required any</i>
+	obj 
+	)</i>
 </code>
 <br>
 <br>
@@ -1370,19 +1380,19 @@ any, required, obj
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_setParameters">setParameters</a>* 
+	<a name="method_setParameters">setParameters</a>* 
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>private</i>
-<i>void</i>
-<b>setParameters</b>
-(<i> struct</i>
-args, <i> struct</i>
-target="[runtime expression]" 
-)</i>
+	<code>
+	<i>private</i>
+	<i>void</i>
+	<b>setParameters</b>
+	(<i> struct</i>
+	args, <i> struct</i>
+	target="[runtime expression]" 
+	)</i>
 </code>
 <br>
 <br>
@@ -1403,18 +1413,18 @@ struct, optional, target
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_setPassword">setPassword</a>
+	<a name="method_setPassword">setPassword</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>boolean</i>
-<b>setPassword</b>
-(<i> required string</i>
-pass 
-)</i>
+	<code>
+	<i>public</i>
+	<i>boolean</i>
+	<b>setPassword</b>
+	(<i> required string</i>
+	pass 
+	)</i>
 </code>
 <br>
 <br>
@@ -1432,18 +1442,18 @@ string, required, pass
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_SETTEXT">SETTEXT</a>
+	<a name="method_SETTEXT">SETTEXT</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>void</i>
-<b>SETTEXT</b>
-(<i> required string</i>
-text 
-)</i>
+	<code>
+	<i>public</i>
+	<i>void</i>
+	<b>SETTEXT</b>
+	(<i> required string</i>
+	text 
+	)</i>
 </code>
 <br>
 <br>
@@ -1458,18 +1468,18 @@ string, required, text
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_SETTYPE">SETTYPE</a>
+	<a name="method_SETTYPE">SETTYPE</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>void</i>
-<b>SETTYPE</b>
-(<i> required string</i>
-type 
-)</i>
+	<code>
+	<i>public</i>
+	<i>void</i>
+	<b>SETTYPE</b>
+	(<i> required string</i>
+	type 
+	)</i>
 </code>
 <br>
 <br>
@@ -1484,18 +1494,18 @@ string, required, type
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_SETVALUESALREADYSERIALIZED">SETVALUESALREADYSERIALIZED</a>
+	<a name="method_SETVALUESALREADYSERIALIZED">SETVALUESALREADYSERIALIZED</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>void</i>
-<b>SETVALUESALREADYSERIALIZED</b>
-(<i> required boolean</i>
-valuesAlreadySerialized 
-)</i>
+	<code>
+	<i>public</i>
+	<i>void</i>
+	<b>SETVALUESALREADYSERIALIZED</b>
+	(<i> required boolean</i>
+	valuesAlreadySerialized 
+	)</i>
 </code>
 <br>
 <br>
@@ -1510,19 +1520,19 @@ boolean, required, valuesAlreadySerialized
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_splitStrToArray">splitStrToArray</a>* 
+	<a name="method_splitStrToArray">splitStrToArray</a>* 
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>private</i>
-<i>array</i>
-<b>splitStrToArray</b>
-(<i> string</i>
-data, <i> numeric</i>
-size="[runtime expression]" 
-)</i>
+	<code>
+	<i>private</i>
+	<i>array</i>
+	<b>splitStrToArray</b>
+	(<i> string</i>
+	data, <i> numeric</i>
+	size="[runtime expression]" 
+	)</i>
 </code>
 <br>
 <br>
@@ -1543,18 +1553,18 @@ numeric, optional, size
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_typeFL2CF">typeFL2CF</a>* 
+	<a name="method_typeFL2CF">typeFL2CF</a>* 
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>private</i>
-<i>string</i>
-<b>typeFL2CF</b>
-(<i> string</i>
-type 
-)</i>
+	<code>
+	<i>private</i>
+	<i>string</i>
+	<b>typeFL2CF</b>
+	(<i> string</i>
+	type 
+	)</i>
 </code>
 <br>
 <br>
@@ -1572,17 +1582,17 @@ string, optional, type
 </tr>
 <tr>
 <th align="left" colspan="1">
-<a name="method_warn">warn</a>
+	<a name="method_warn">warn</a>
 </th>
 </tr>
 <tr>
 <td>
-<code>
-<i>public</i>
-<i>boolean</i>
-<b>warn</b>
-(
-)</i>
+	<code>
+	<i>public</i>
+	<i>boolean</i>
+	<b>warn</b>
+	(
+	)</i>
 </code>
 <br>
 <br>
