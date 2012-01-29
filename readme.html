@@ -167,11 +167,11 @@ function toggleImg(id) { toggleDisplayStyle(id); }
   <li>FireLogger extension ( <a href="http://firelogger.binaryage.com/">http://firelogger.binaryage.com/</a> )</li>
 </ul>
 <h3><a name="inst_cffl"></a>CF-FireLogger</h3>
-<p><a href="https://github.com/mpaperno/CF-FireLogger/zipball/master">Download the latest version from Github</a>.</p>
+<p><a href="https://github.com/downloads/mpaperno/CF-FireLogger/CF-FireLogger.zip">Download the latest version from Github</a>.</p>
 <ol>
   <li>To install, first extract the .zip installation package to a folder on your computer.</li>
   <li>Move the <em>&quot;us&quot;</em> folder and its contents (<i>/us/wdg/cf/firelogger.cfc</i>) to your ColdFusion CustomTags directory.&nbsp; Typically (on Windows) this will be <i>C:\ColdFusion9\CustomTags</i>.&nbsp; Or you can place it anywhere else CF will know to look for custom tags and components (for example if you have specified additional custom tag paths in CF admin).&nbsp; You could also just place the <span class="tech_progName">firelogger.cfc</span> file into your site's web root folder, although it is preferable to have it available where CF can always find it.</li>
-  <li>To test CF-FireLogger, put the <i>test.cfm</i> file somewhere you can execute it and then load it up in Firefox.&nbsp; Make sure you have Firebug enabled for the current site, and make sure FireLogger is also enabled (use the little arrow next to the &quot;Logger&quot; tab).&nbsp; You should see output in the FireLogger window, similar to the screenshot above.</li>
+  <li>To test <span class="tech_progName">CF-FireLogge</span>r, put the <i>test.cfm</i> and <em>firelogger-test.cfc</em> files somewhere you can run them from (in a site folder) and then load up <em>test.cfm</em> in Firefox.&nbsp; Make sure you have Firebug enabled for the current site, and make sure FireLogger is also enabled (use the little arrow next to the &quot;Logger&quot; tab).&nbsp; You should see output in the FireLogger window, similar to the screenshot above.</li>
   <li>You are ready to start utilizing the basic functions of <span class="tech_progName">CF-FireLogger</span> by using <span class="tech_progName">firelogger.cfc</span> directly (instructions below, or just read the <em>test.cfm</em> file).&nbsp; To integrate <span class="tech_progName">CF-FireLogger</span> with CFs built-in cftrace/trace() commands (recommended!), keep reading.</li>
 </ol>
 <h3><a name="inst_opt"></a>Optional Installations and Files</h3>
