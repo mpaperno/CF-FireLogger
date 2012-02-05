@@ -2,9 +2,10 @@
 	Name:				firelogger.cfc
 	Author:			Maxim Paperno
 	Created:			Jan. 2012
-	Last Updated:	1/28/2012
-	Version:			1.03
-	History:			Added attributes to resetLoggerBadge to allow reset of name/colors/both. (jan-28-12)
+	Last Updated:	5-Feb-2012
+	Version:			1.04
+	History:			In error object dump added checks for struct keys actually existing (prevents "ID not defined" in tagcontext) (feb-5-12)
+						Added attributes to resetLoggerBadge to allow reset of name/colors/both. (jan-28-12)
 						Minor method meta info updates. (jan-24-12)
 						Auto-set level to error if logging cfcatch object. Fix for passing pre-formatted error report. (jan-24-12)
 						Initial version.
@@ -680,10 +681,10 @@ Handles server-side output for the FireLogger (http://firelogger.binaryage.com) 
 			if ( IsDefined("e.TagContext") && isArray(e.TagContext) && arrayLen(e.TagContext) ) {
 				for (var x=1; x <= arrayLen(e.TagContext); x=x+1) {
 					exc_info[3][x] = ArrayNew(1);
-					exc_info[3][x][1] = e.TagContext[x].template;
-					exc_info[3][x][2] = e.TagContext[x].line;
-					exc_info[3][x][3] = e.TagContext[x].id;
-					exc_info[3][x][4] = Replace(e.TagContext[x].raw_trace, e.TagContext[x].template & ":" & e.TagContext[x].line, "");
+					exc_info[3][x][1] = structKeyExists(e.TagContext[x], "template") ? e.TagContext[x].template : '?';
+					exc_info[3][x][2] = structKeyExists(e.TagContext[x], "line") ? e.TagContext[x].line : '?';
+					exc_info[3][x][3] = structKeyExists(e.TagContext[x], "id") ? e.TagContext[x].id : '??';
+					exc_info[3][x][4] = structKeyExists(e.TagContext[x], "raw_trace") ? Replace(e.TagContext[x].raw_trace, e.TagContext[x].template & ":" & e.TagContext[x].line, "") : '??';
 				}
 				local.filename = e.TagContext[1].template;
 				local.lineno = e.TagContext[1].line;
