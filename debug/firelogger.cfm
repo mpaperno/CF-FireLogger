@@ -2,9 +2,10 @@
 	Name:				firelogger.cfm
 	Author:			Maxim Paperno
 	Created:			Jan. 2012
-	Last Updated:	1/23/2012
-	Version:			2.0
-	History:			Rewrite to make use of new firelogger.cfc component to do the actual output to the console. (23-Jan-12)
+	Last Updated:	07-Feb-2012
+	Version:			2.0.1
+	History:			Fixed bug preventing display of queries.  Added variables for logger settings. (07-Feb-12);
+						Rewrite to make use of new firelogger.cfc component to do the actual output to the console. (23-Jan-12)
 						Further improved component dump. Added fallbackDebugHandler option for when headers can't be sent. Bumped FireLogger extension recommended version to 1.2. Minor fixes. (14-Jan-12)
 						Bugfix (id:1): Error formatting CFCs: The element at position 1 cannot be found.  Added extraVarsToShow config parameter. Improved internal error handling. (1/13/12))
 						Updated java class and CF component dumps.  Now has a nice display of component property values, if available. (1/12/2012)
@@ -50,40 +51,54 @@ __firelogger__.selfName = "firelogger";
 
 /*  
 	debugMode=true will cfdump our output to the current page
-	dumpOnError=true will cfdump any unhandled exception within firelogger.cfm to the current page
+	dumpOnError=true will cfdump any unhandled exception within firelogger.cfm and/or firelogger.cfc to the current page
  */
 __firelogger__.debugMode = false;
 __firelogger__.dumpOnError = true;
-		
+
+/*
+	FireLogger.cfc settings
+
+	loggerLabel=name for logger "badge"; leave blank for default;
+	loggerColor=color value for logger "badge" (eg: "red" or "##FAFAFA"); leave blank for default;
+	debugCFC=true will enable debugging in firelogger.cfc
+	cfcDebugLevel=debug level for cfc; one of: info, error, panic;
+ */
+__firelogger__.loggerLabel = "CF DBG";
+__firelogger__.loggerColor = "";
+__firelogger__.debugCFC = false;
+__firelogger__.cfcDebugLevel = "info";
+
 /* Check that FireLogger is enabled */
 if ( IsDebugMode() and StructKeyExists(GetHttpRequestData().headers,"X-FireLoggerProfiler") ) {
 	try {
 		
 		// get a new firelogger object instance. the try/catch will handle things if it doesn't exist
 		__firelogger__.console = new us.wdg.cf.firelogger(fallbackLogMethod="none",
-											loggerName="CF DBG",
 											valuesAlreadySerialized=true,
 											filename=CGI.CF_TEMPLATE_PATH,
 											lineno="?",
-											debugMode=false,
+											debugMode=__firelogger__.debugCFC,
 											debugTraceInline=__firelogger__.dumpOnError,
-											debugLevel="info"
+											debugLevel=__firelogger__.cfcDebugLevel
 										);
 		
 		if ( Len(__firelogger__.password) ) {
-			__firelogger__.console.setPassword(__firelogger__.password);
-		}
+			__firelogger__.console.setPassword(__firelogger__.password); }
+		if ( Len(__firelogger__.loggerLabel) ) {
+			__firelogger__.console.setLoggerName(__firelogger__.loggerLabel); }
+		if ( Len(__firelogger__.loggerColor) ) {
+			__firelogger__.console.setLoggerBGColor(__firelogger__.loggerColor); }
 	
 		if ( __firelogger__.console.getIsConsoleEnabled() ) {
 		
-			/*  internal use only  */
-			//__firelogger__.errors = ArrayNew(1);
+			/*  this keeps track of the template output count (needs to be "global" instead of local to the UDF)  */
 			__firelogger__.treeidx = 1;
 		
-			/*  Build Headers  */
+			/*  Do the work! */
 			firelogger_udf_main(debugMode=__firelogger__.debugMode, dumpOnError=__firelogger__.dumpOnError);
 	
-		} else {
+		} else { // console not enabled -- fire fallback
 			firelogger_udf_handleFallback();
 		}
 	}
@@ -94,11 +109,18 @@ if ( IsDebugMode() and StructKeyExists(GetHttpRequestData().headers,"X-FireLogge
 			firelogger_udf_handleFallback();
 		}
 	}
-/*  Fall back to another template if specified  */
+	
+/* Not debug mode or FireLogger disabled -- Fall back to another template if specified  */
 } else {
 	firelogger_udf_handleFallback();
 }
 
+/**
+ * Handle fallback based on type and configured handler templates
+ *
+ * @type: disabled = handle case where FireLogger is disabled; 
+ *			 flushed = handle case where output headers are already sent (output has been "flushed")
+ */
 function firelogger_udf_handleFallback(type="disabled") {
 	if ( arguments.type IS "disabled" AND Len(__firelogger__.fallbackTemplate) ) {
 		include __firelogger__.fallbackTemplate;
@@ -200,7 +222,7 @@ function firelogger_udf_handleFallback(type="disabled") {
 		<cfset result.timer = serializeJSON(firelogger_udf_getTimer(qEvents))>
 		
 		<!--- if the results will have queries (including nested in other data), use __firelogger__.console.encodeJSON() --->
-		<cfset result.queries = __firelogger__.console.encodeJSON(firelogger_udf_getQueries(qEvents, __firelogger__.maxLogEntriesPerType))>
+		<cfset result.queries = __firelogger__.console.encodeJSON(firelogger_udf_getQueries(qEvents, "SqlQuery", __firelogger__.maxLogEntriesPerType))>
 		<cfset result.storedprocs = __firelogger__.console.encodeJSON(firelogger_udf_getQueries(qEvents, "StoredProcedure", __firelogger__.maxLogEntriesPerType))>
 		<cfset result.trace = __firelogger__.console.encodeJSON(firelogger_udf_getTrace(qEvents, __firelogger__.maxLogEntriesPerType))>
 		<cfset result.variables = firelogger_udf_getVariables(varArray)>
@@ -934,7 +956,7 @@ function firelogger_udf_handleFallback(type="disabled") {
 				</cfloop>
 			</cfif>				
 			
-			<cfset q = NumberFormat(StructCount(resultStruct)+1, "000") & " " & firelogger_queries.name>
+			<cfset q = NumberFormat(StructCount(resultStruct)+1, RepeatString("0", Len(count.ttl))) & " " & firelogger_queries.name>
 			<cfset resultStruct[q] = StructNew()>
 			<cfset resultStruct[q].meta = "Cached: " & YesNoFormat(firelogger_queries.cachedquery) & Chr(13) & Chr(10) &
 		  											"Exec. Time: " & firelogger_queries.executiontime & " ms." & Chr(13) & Chr(10) &
@@ -954,7 +976,7 @@ function firelogger_udf_handleFallback(type="disabled") {
 	
 		<cfcatch type="Any" >
 		   <cfset firelogger_udf_error("Error formatting queries", cfcatch)>
-			<cfreturn "error occured while trying to output this value" />
+			<cfreturn "error occurred while trying to output this value" />
 		</cfcatch>
 		
 	</cftry>
